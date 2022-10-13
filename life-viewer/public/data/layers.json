@@ -1,0 +1,24 @@
+[
+    {
+        "type": "TileLayer",
+        "queryable": true,
+        "name": "OrtoExpress",
+        "source": {
+            "type": "TileWMS",
+            "url": "https://idecan1.grafcan.es/ServicioWMS/OrtoExpress",
+            "params": {"LAYERS": "ortoexpress", "FORMAT": "image/jpeg", "TILED": true},
+            "serverType": "mapserver"
+        }
+    },
+    {
+        "type": "TileLayer",
+        "queryable": true,
+        "name": "Mapa Topográfico Integrado",
+        "source": {
+            "type": "TileWMS",
+            "url": "https://idecan2.grafcan.es/ServicioWMS/MTI",
+            "params": {"LAYERS": "WMS_MTI", "FORMAT": "image/png", "TILED": true},
+            "serverType": "mapserver"
+        }
+    }
+  ]
