@@ -2,17 +2,42 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/x-icon" href="https://openlayers.org/favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="/img/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Visor LIFE Garachico</title>
 
+    <link rel="stylesheet" id="google-fonts-1-css" href="https://fonts.googleapis.com/css?family=Noto+Sans%3A100%2C100italic%2C200%2C200italic%2C300%2C300italic%2C400%2C400italic%2C500%2C500italic%2C600%2C600italic%2C700%2C700italic%2C800%2C800italic%2C900%2C900italic%7CNoto+Sans+HK%3A100%2C100italic%2C200%2C200italic%2C300%2C300italic%2C400%2C400italic%2C500%2C500italic%2C600%2C600italic%2C700%2C700italic%2C800%2C800italic%2C900%2C900italic&#038;display=auto&#038;ver=6.0.2" type="text/css" media="all" />
     <script src="js/jquery-3.6.0.js"></script>
     <script src="js/jquery-ui-1.13.2/jquery-ui.js"></script>
     <link rel="stylesheet" href="js/jquery-ui-1.13.2/jquery-ui.css">
 
   </head>
   <body>
+
     <div id="map"></div>
+
+    <div id="logo-life-garachico">
+      <a href="https://lifegarachico.eu/" target="_blank">
+        <img width="85" src="/img/logo-life-garachico-original.png"/>
+      </a>
+    </div>
+    
+    <div id="logo-life">
+      <a href="https://www.miteco.gob.es/es/ministerio/servicios/ayudas-subvenciones/programa-life/" target="_blank">
+        <img src="/img/logo-life.png"/>
+      </a>
+    </div>
+    
+    <div id="toc">
+      <div id="toc-layers">
+      </div>
+    </div>
+
+    <button id="toc-btn" class="ui-button ui-widget ui-corner-all">Capas</button>
+
+    <div id="coordinate"></div>
+
     <script type="module" src="./main.js"></script>
+
   </body>
 </html>

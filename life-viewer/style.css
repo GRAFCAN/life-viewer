@@ -1,8 +1,19 @@
 @import "node_modules/ol/ol.css";
-
+:root {
+  --primary-color: #196777;
+  --secondary-color: #4ebcc9;
+  --blue-color-1:  #A0D5E3;
+  --blue-color-2: #E3F3F6;
+  --text-color: #071e21;
+  --brown-color: #bea940;
+  --font-family: "Noto Sans";
+}
 html, body {
   margin: 0;
   height: 100%;
+}
+html, body * {
+  font-family: var(--font-family) !important;
 }
 #map {
   position: absolute;
@@ -10,11 +21,59 @@ html, body {
   bottom: 0;
   width: 100%;
 }
-/* #info {
+#logo-life-garachico {
   position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 400px;
-  height: 300px;
-  display: none;
-} */
+  bottom: 4px;
+  left: 4px;
+  background-color: rgba(255, 255, 255, 0.4);
+  padding: 4px;
+  border-radius: 8px;
+}
+#logo-life {
+  position: absolute;
+  bottom: 2px;
+  right: 4px;
+}
+#toc-btn {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+}
+#coordinate {
+  position: absolute;
+  bottom: 2px;
+  left: 150px;
+  width: 200px;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 4px;
+  border-radius: 4px;
+  font-size: 0.8em;
+}
+#coordinate-x, #coordinate-y {
+  display: inline;
+}
+#coordinate-y {
+  margin-left: 15px;
+}
+
+/* jquery ui */
+.ui-widget-header {
+  border: none;
+  background: var(--blue-color-2);
+  color: var(--primary-color);
+  font-weight: bold;
+}
+.ui-button .ui-icon {
+  background-color: var(--brown-color);
+  background-image: url(/js/jquery-ui-1.13.2/images/ui-icons_ffffff_256x240.png);
+}
+.ui-icon-closethick {
+  background-image: url(/js/jquery-ui-1.13.2/images/ui-icons_ffffff_256x240.png) !important;
+}
+.ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active, a.ui-button:active, .ui-button:active, .ui-button.ui-state-active:hover {
+  border: none;
+  background: none;
+  font-weight: normal;
+  color: var(--text-color);
+}

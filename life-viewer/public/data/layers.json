@@ -2,7 +2,9 @@
     {
         "type": "TileLayer",
         "queryable": true,
-        "name": "OrtoExpress",
+        "name": "ortoexpress",
+        "title": "OrtoExpress",
+        "visible": true,
         "source": {
             "type": "TileWMS",
             "url": "https://idecan1.grafcan.es/ServicioWMS/OrtoExpress",
@@ -13,7 +15,9 @@
     {
         "type": "TileLayer",
         "queryable": true,
-        "name": "Mapa Topográfico Integrado",
+        "name": "mti",
+        "title": "Mapa Topográfico Integrado",
+        "visible": false,
         "source": {
             "type": "TileWMS",
             "url": "https://idecan2.grafcan.es/ServicioWMS/MTI",
