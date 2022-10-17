@@ -11,6 +11,7 @@
 html, body {
   margin: 0;
   height: 100%;
+  overflow: hidden;
 }
 html, body * {
   font-family: var(--font-family) !important;
@@ -34,27 +35,35 @@ html, body * {
   bottom: 2px;
   right: 4px;
 }
+#toc {
+  display: none;
+}
 #toc-btn {
   position: absolute;
   top: 2px;
   right: 2px;
 }
-#coordinate {
+#tools-btn {
   position: absolute;
-  bottom: 2px;
-  left: 150px;
-  width: 200px;
-  color: white;
-  background-color: rgba(0, 0, 0, 0.6);
-  padding: 4px;
+  top: 49px;
+  right: 2px;
+}
+.ol-mouse-position {
+  top: auto;
+  bottom: 7px;
+  right: 125px;
+  width: 180px;
+  height: 17px;
+  background: var(--ol-partial-background-color);
   border-radius: 4px;
-  font-size: 0.8em;
+  padding: 2px;
+  color: var(--ol-foreground-color);
+  font-size: 0.7em;
+  text-align: center;
+  margin: 1px;
 }
-#coordinate-x, #coordinate-y {
-  display: inline;
-}
-#coordinate-y {
-  margin-left: 15px;
+.ol-scale-line {
+  left: 125px;
 }
 
 /* jquery ui */
@@ -65,15 +74,57 @@ html, body * {
   font-weight: bold;
 }
 .ui-button .ui-icon {
-  background-color: var(--brown-color);
-  background-image: url(/js/jquery-ui-1.13.2/images/ui-icons_ffffff_256x240.png);
+  /* background-color: var(--brown-color); */
+  /* background-image: url(/js/jquery-ui-1.13.2/images/ui-icons_ffffff_256x240.png); */
+  margin: 0;
+}
+.ui-button-icon-only .ui-icon {
+  position: absolute;
+  top: 50%;
+  left: 25%;
+  margin-top: -8px;
+  margin-left: -4px;
 }
 .ui-icon-closethick {
-  background-image: url(/js/jquery-ui-1.13.2/images/ui-icons_ffffff_256x240.png) !important;
+  /* background-image: url(/js/jquery-ui-1.13.2/images/ui-icons_ffffff_256x240.png) !important; */
+  background-image: url(/img/btn_close.png) !important;
+  background-position: 0 0;
+  background-size: contain;
 }
 .ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active, a.ui-button:active, .ui-button:active, .ui-button.ui-state-active:hover {
   border: none;
   background: none;
   font-weight: normal;
   color: var(--text-color);
+}
+.ui-widget.ui-widget-content {
+  border: none;
+}
+/* remove close button 'X' */
+.noclose .ui-dialog-titlebar-close {
+  display:none;
+}
+.ui-selectmenu-open {
+  border: 1px solid var(--text-color);
+}
+
+.btn-layers-class {
+  background-image: url(/img/btn_layers.png) !important;
+  background-position: 0 0;
+  background-size: contain;
+  width: 32px;
+  height: 32px;
+}
+.btn-tools-class {
+  background-image: url(/img/btn_tools.png) !important;
+  background-position: 0 0;
+  background-size: contain;
+  width: 32px;
+  height: 32px;
+}
+
+
+/* openlayers */
+.ol-tooltip {
+  color: white;
 }

@@ -32,10 +32,26 @@
       <div id="toc-layers">
       </div>
     </div>
+    <button id="toc-btn" class="ui-button ui-widget ui-corner-all"></button>
 
-    <button id="toc-btn" class="ui-button ui-widget ui-corner-all">Capas</button>
+    <div id="tools-div">
+      <ul id="tools-menu">
+        <li id="tool-measure"><div>Medición</div></li>
+        <li id="tool-doublewindow"><div>Ventana doble</div></li>
+      </ul>
+    </div>
+    <button id="tools-btn"></button>
 
-    <div id="coordinate"></div>
+    <div id="tool-measure-dialog">
+      <label for="tool-measure-type">Tipo de medición</label>
+      <select id="tool-measure-type" name="tool-measure-type">
+        <option value="LineString" selected>Longitud</option>
+        <option value="Polygon">Área</option>
+      </select>
+    </div>
+
+    <div id="coordinate-utm"></div>
+    <div id="scale"></div>
 
     <script type="module" src="./main.js"></script>
 
