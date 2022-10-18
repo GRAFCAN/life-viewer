@@ -96,9 +96,28 @@ function mapPointerMove(evt) {
     }
 }
 
+function viewChangeCenter(evt) {
+
+    if (doublewindow.getActive()) {
+        doublewindow.synchronize();
+    }
+
+}
+
+function viewChangeResolution(evt) {
+
+}
+
+function viewChangeRotation(evt) {
+
+}
+
 function initEvents() {
     map.on('singleclick', mapSingleclick);
     map.on('pointermove', mapPointerMove);
+    map.getView().on('change:center', viewChangeCenter);
+    map.getView().on('change:resolution', viewChangeResolution);
+    map.getView().on('change:rotation', viewChangeRotation);
 }
 
 function refreshToc() {
