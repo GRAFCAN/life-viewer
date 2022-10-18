@@ -15,6 +15,7 @@
   <body>
 
     <div id="map"></div>
+    <div id="map2"></div>
 
     <div id="logo-life-garachico">
       <a href="https://lifegarachico.eu/" target="_blank">
@@ -48,6 +49,23 @@
         <option value="LineString" selected>Longitud</option>
         <option value="Polygon">Área</option>
       </select>
+    </div>
+
+    <div id="tool-doublewindow-dialog">
+      <p>
+        <label for="tool-doublewindow-active-map">Mapa activo</label>
+        <select id="tool-doublewindow-active-map" name="tool-doublewindow-active-map">
+          <option value="left" selected>Izquierdo</option>
+          <option value="right">Derecho</option>
+        </select>
+      </p>
+      <p>
+        <label for="tool-doublewindow-type">Tipo de mapa</label>
+        <select id="tool-doublewindow-type" name="tool-doublewindow-type">
+          <option value="sync" selected>Sincronizado</option>
+          <option value="extended">Extendido</option>
+        </select>
+      </p>
     </div>
 
     <div id="coordinate-utm"></div>
