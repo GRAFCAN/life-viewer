@@ -18,9 +18,18 @@ html, body * {
 }
 #map {
   position: absolute;
+  left: 0;
   top: 0;
-  bottom: 0;
   width: 100%;
+  height: 100%;
+}
+#map2 {
+  position: absolute;
+  visibility: hidden;
+  right: 0;
+  top: 0;
+  width: 50%;
+  height: 100%;
 }
 #logo-life-garachico {
   position: absolute;
@@ -48,6 +57,34 @@ html, body * {
   top: 49px;
   right: 2px;
 }
+#tools-div {
+  display: none;
+}
+#tool-measure-dialog {
+  display: none;
+}
+#tool-doublewindow-dialog {
+  display: none;
+}
+#tool-doublewindow-dialog select {
+  padding-top: 2px;
+}
+.btn-layers-class {
+  background-image: url(/img/btn_layers.png) !important;
+  background-position: 0 0;
+  background-size: contain;
+  width: 32px;
+  height: 32px;
+}
+.btn-tools-class {
+  background-image: url(/img/btn_tools.png) !important;
+  background-position: 0 0;
+  background-size: contain;
+  width: 32px;
+  height: 32px;
+}
+
+/* OpenLayers */
 .ol-mouse-position {
   top: auto;
   bottom: 7px;
@@ -64,6 +101,14 @@ html, body * {
 }
 .ol-scale-line {
   left: 125px;
+}
+.ol-tooltip {
+  color: white;
+}
+.ol-rotate {
+  right: none;
+  left: 8px;
+  top: 60px;
 }
 
 /* jquery ui */
@@ -106,25 +151,4 @@ html, body * {
 }
 .ui-selectmenu-open {
   border: 1px solid var(--text-color);
-}
-
-.btn-layers-class {
-  background-image: url(/img/btn_layers.png) !important;
-  background-position: 0 0;
-  background-size: contain;
-  width: 32px;
-  height: 32px;
-}
-.btn-tools-class {
-  background-image: url(/img/btn_tools.png) !important;
-  background-position: 0 0;
-  background-size: contain;
-  width: 32px;
-  height: 32px;
-}
-
-
-/* openlayers */
-.ol-tooltip {
-  color: white;
 }
