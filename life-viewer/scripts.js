@@ -8,6 +8,7 @@ import MousePosition from 'ol/control/MousePosition';
 import ScaleLine from 'ol/control/ScaleLine';
 
 import * as measure from './modules/tool-measure';
+import * as doublewindow from './modules/tool-doublewindow';
 
 // EPSG:32628 projection
 proj4.defs(
@@ -17,15 +18,16 @@ proj4.defs(
 register(proj4);
 
 export let map;
+let mousePositionControl;
 
-export const view = new View({
+let view = new View({
     projection: getProjection('EPSG:32628'),
     center: [326834.62, 3139762.92],
     extent: [323220.4023237814, 3137760.6135218954, 330131.9412516408, 3141794.416367382],
     zoom: 15
 });
 
-export function init_map(data) {
+export function initMap(data) {
     let layers = [];
     data.forEach(layer => {
         if (layer.type == 'TileLayer') {
@@ -48,12 +50,12 @@ export function init_map(data) {
         view: view
     });
 
-    init_events();
+    initControls(data);
 
-    init_controls(data);
+    initEvents();
 }
 
-function map_singleclick(evt) {
+function mapSingleclick(evt) {
     let offset = 10;
     const viewResolution = /** @type {number} */ (view.getResolution());
     map.getLayers().forEach((layer, index, arr) => {
@@ -88,20 +90,41 @@ function map_singleclick(evt) {
     });
 }
 
-function init_events() {
-    // singleclick
-    map.on('singleclick', map_singleclick);  
+function mapPointerMove(evt) {
+    if (evt.map != mousePositionControl.getMap()) {
+        mousePositionControl.setMap(evt.map);
+    }
 }
 
-function init_controls(data) {
+function initEvents() {
+    map.on('singleclick', mapSingleclick);
+    map.on('pointermove', mapPointerMove);
+}
+
+function refreshToc() {
+    $('#toc-layers').empty();
+    map.getLayers().forEach(ele => {
+        const name = ele.get('name')
+        const title = ele.get('title')
+        const checked = ele.getVisible() ? 'checked ' : '';
+        $('#toc-layers').prepend('<label for="lyr-' + name + '">' + title + '</label>');
+        $('#toc-layers').prepend(
+            '<input ' + checked + 'type="checkbox" name="layers" id="lyr-' + name + '" value="' + name + '"></input>');
+        $('#lyr-' + name).on('click', () => {
+            const layer = map.getLayers().getArray().find(layer => layer.get('name') == name);
+            layer.setVisible(!layer.getVisible());
+        });
+    });
+}
+
+function initControls(data) {
     // mouse position
-    map.addControl(new MousePosition({
+    mousePositionControl = new MousePosition({
         target: 'coordinate-utm',
         coordinateFormat: function(coordinate) {
             return 'x: ' + coordinate[0].toLocaleString() + ' y: ' + coordinate[1].toLocaleString();
-        },
-        projection: 'EPSG:32628',
-    }));
+        }
+    });
 
     // scale
     map.addControl(new ScaleLine({
@@ -123,17 +146,17 @@ function init_controls(data) {
     // toc btn
     $('#toc-btn').button({icon: 'btn-layers-class'});
     $('#toc-btn').on('click', () => {
-        open_toc();
+        openToc();
     });
 
     // tools btn
     $('#tools-btn').button({icon: 'btn-tools-class'});
     $('#tools-btn').on('click', () => {
-        open_tools();
+        openTools();
     });
 }
 
-function open_toc() {
+function openToc() {
     $("#toc").dialog({
         position: { my: 'right top', at: 'left top', of: $('#toc-btn') },
         autoOpen: false,
@@ -149,7 +172,7 @@ function open_toc() {
     }
 }
 
-function open_tools() {
+function openTools() {
     let tool_dialog = $('#tools-div').dialog({
         position: { my: 'right top', at: 'left top', of: $('#tools-btn') },
         autoOpen: false,
@@ -161,24 +184,25 @@ function open_tools() {
         $('#tools-div').dialog('open');
         $('#tools-menu').menu({
             select: function(event, ui) {
-                execute_tool(event.currentTarget.id);
+                executeTool(event.currentTarget.id);
                 tool_dialog.dialog('close');
             }
         });
     }
 }
 
-function execute_tool(tool_id) {
+function executeTool(tool_id) {
     switch (tool_id) {
         case 'tool-measure':
-            execute_measure();
+            toolMeasure();
             break;
-        case 'double-window':
+        case 'tool-doublewindow':
+            toolDoubleWindow();
             break;
     }
 }
 
-function execute_measure() {
+function toolMeasure() {
     $(function() {
         $('#tool-measure-dialog').dialog({
             dialogClass: 'noclose',
@@ -190,18 +214,18 @@ function execute_measure() {
             open: function(event, ui) {
                 $('#tool-measure-type').selectmenu({
                     select: function(event, ui) {
-                        measure.change_type(ui.item.value);
+                        measure.changeType(ui.item.value);
                     }
                 });
-                map.un('singleclick', map_singleclick);
+                map.un('singleclick', mapSingleclick);
                 measure.execute({
                     map: map,
                     type: $('#tool-measure-type').val(),
                     callback_ini: function() {
-                        map.un('singleclick', map_singleclick);
+                        map.un('singleclick', mapSingleclick);
                     },
                     callback_end: function() {
-                        map.on('singleclick', map_singleclick);
+                        map.on('singleclick', mapSingleclick);
                     }
                 });
             },
@@ -211,7 +235,57 @@ function execute_measure() {
                 },
                 'Cerrar': function() {
                     measure.finalize();
-                    map.on('singleclick', map_singleclick);
+                    map.on('singleclick', mapSingleclick);
+                    $(this).dialog('close');
+                }
+            }
+        });
+    });
+}
+
+function toolDoubleWindow() {
+    $(function() {
+        $('#tool-doublewindow-dialog').dialog({
+            dialogClass: 'noclose',
+            resizable: false,
+            height: 'auto',
+            width: 425,
+            height: 275,
+            title: 'Doble ventana',
+            position: { my: 'right top', at: 'left top', of: $('#tools-btn')},
+            open: function(event, ui) {
+                $('#tool-doublewindow-active-map').selectmenu({
+                    select: function(event, ui) {
+                        doublewindow.changeActiveMap(ui.item.value);
+                    }
+                });
+                $('#tool-doublewindow-type').selectmenu({
+                    select: function(event, ui) {
+                        doublewindow.changeMapType(ui.item.value);
+                    }
+                });
+                doublewindow.execute({
+                    type: 'sync', // sync, extended
+                    parent_map: map,
+                    parent_map_id: 'map',
+                    slave_map_id: 'map2',
+                    callback_changeMap: function(active_map) {
+                        map = active_map;
+                        refreshToc();
+                    },
+                    callback_ini: function() {
+                        doublewindow.getSlaveMap().on('singleclick', mapSingleclick);
+                        doublewindow.getSlaveMap().on('pointermove', mapPointerMove);
+                    },
+                    callback_end: function() {
+                        doublewindow.getSlaveMap().un('pointermove', mapPointerMove);
+                        doublewindow.getSlaveMap().un('singleclick', mapSingleclick);
+                    }
+                });
+            },
+            buttons: {
+                'Cerrar': function() {
+                    doublewindow.finalize();
                     $(this).dialog('close');
                 }
             }
