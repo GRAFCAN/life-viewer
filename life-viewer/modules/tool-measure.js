@@ -193,7 +193,7 @@ export function finalize() {
   map.removeLayer(vector);
 }
 
-export function change_type(type) {
+export function changeType(type) {
   map.removeInteraction(draw);
   addInteraction(type);
 }
