@@ -7,7 +7,7 @@ let callback_ini, callback_end, callback_changeMap;
 let parent_map, parent_map_id;
 let slave_map, slave_map_id;
 let slave_view;
-let map_type, active_map;
+let map_type, active_map, theother_map;
 
 function cloneMap(type) {
     // view
@@ -20,13 +20,6 @@ function cloneMap(type) {
             extent: parent_map.getView().calculateExtent(),
             zoom: parent_map.getView().getZoom()
         });
-        // sync code
-        var span =(p.idmap === 1 ? -1 : 1) * mmap.getView().getResolution() * mmap.getSize()[0];
-        var x1 = mmap.getView().getCenter()[0];
-        var y1 = mmap.getView().getCenter()[1];
-        var x2 = x1 + span * Math.cos(rotation);
-        var y2 = y1 + span * Math.sin(rotation);
-        center = [x2, y2];        
     }
 
     // map
@@ -58,9 +51,6 @@ function divideWindow(type) {
     $('#' + parent_map_id).width('50%');
     parent_map.updateSize();
     $('#' + slave_map_id).css('visibility', 'visible');
-    if (type == 'sync') {
-    } else {
-    }
 }
 
 function restoreWindow() {
@@ -81,8 +71,18 @@ export function finalize() {
     restoreWindow();
 }
 
+export function getActive() {
+    return active;
+}
+
 export function changeActiveMap(side) {
-    active_map = (side === 'left' ? parent_map : slave_map);
+    if (side === 'left') {
+        active_map = parent_map;
+        theother_map = slave_map;
+    } else {
+        active_map = slave_map;
+        theother_map = parent_map;
+    }
     callback_changeMap(active_map);
 }
 
@@ -96,6 +96,46 @@ export function getSlaveMap() {
 
 export function changeMapType(type) {
     map_type = type;
+    if (type == 'sync') {
+        slave_view = parent_map.getView();
+    } else {
+        slave_view = new View({
+            projection: parent_map.getView().getProjection(),
+            center: parent_map.getView().getCenter(),
+            extent: parent_map.getView().calculateExtent(),
+            zoom: parent_map.getView().getZoom()
+        });
+    }
+    slave_map.setView(slave_view);
+    synchronize();
+}
+
+export function synchronize() {
+    if (active_map.getView() != theother_map.getView()) {
+        console.log('sync');
+        let zoom = active_map.getView().getZoom();
+        let rotation = active_map.getView().getRotation();
+        let span = (active_map == parent_map ? -1 : 1) * active_map.getView().getResolution() * active_map.getSize()[0];
+        var x1 = active_map.getView().getCenter()[0];
+        var y1 = active_map.getView().getCenter()[1];
+        var x2 = x1 + span * Math.cos(rotation);
+        var y2 = y1 + span * Math.sin(rotation);
+        let center = [x2, y2];
+
+        const same_center = (
+            theother_map.getView().getCenter()[0] == center[0] &&
+            theother_map.getView().getCenter()[1] == center[1]
+        );
+        if (!same_center) {
+            theother_map.getView().setCenter(center);
+        }
+        if (theother_map.getView().getZoom() != zoom) {
+            theother_map.getView().setZoom(zoom);
+        }
+        if (theother_map.getView().getRotation() != rotation) {
+            theother_map.getView().setRotation(rotation);
+        }
+    }
 }
   
 export function execute(opt) {
@@ -107,8 +147,10 @@ export function execute(opt) {
     parent_map = opt.parent_map;
     parent_map_id = opt.parent_map_id;
     slave_map_id = opt.slave_map_id;
+    active_map = opt.parent_map;
 
     cloneMap(opt.type);
+    theother_map = slave_map;
 
     divideWindow(opt.type);
 
