@@ -9,6 +9,7 @@ import ScaleLine from 'ol/control/ScaleLine';
 
 import * as measure from './modules/tool-measure';
 import * as doublewindow from './modules/tool-doublewindow';
+import * as features from './modules/tool-features';
 
 // EPSG:32628 projection
 proj4.defs(
@@ -78,7 +79,7 @@ function mapSingleclick(evt) {
                 .dialog({
                     autoOpen: false,
                     modal: false,
-                    width: 600,
+                    width: 500,
                     height: 400,
                     title: layer.get('title'),
                     position: { my: 'left top', at: 'left+' + offset + ' top+' + offset }
@@ -179,8 +180,8 @@ function openToc() {
     $("#toc").dialog({
         position: { my: 'right top', at: 'left top', of: $('#toc-btn') },
         autoOpen: false,
-        width: 400,
-        height: 300,
+        width: 300,
+        height: 250,
         title: 'Capas'
     });
     if ($('#toc').dialog('isOpen')) {
@@ -195,7 +196,8 @@ function openTools() {
     let tool_dialog = $('#tools-div').dialog({
         position: { my: 'right top', at: 'left top', of: $('#tools-btn') },
         autoOpen: false,
-        title: 'Herramientas'
+        title: 'Herramientas',
+        width: 200
     });
     if ($('#tools-div').dialog('isOpen')) {
         $('#tools-div').dialog('close');
@@ -218,6 +220,9 @@ function executeTool(tool_id) {
         case 'tool-doublewindow':
             toolDoubleWindow();
             break;
+        case 'tool-load-features':
+            toolLoadFeatures();
+            break;
     }
 }
 
@@ -227,8 +232,8 @@ function toolMeasure() {
             dialogClass: 'noclose',
             resizable: false,
             height: 'auto',
-            width: 400,
-            height: 250,
+            // width: 300,
+            // height: 150,
             title: 'Medición',
             open: function(event, ui) {
                 $('#tool-measure-type').selectmenu({
@@ -305,6 +310,48 @@ function toolDoubleWindow() {
             buttons: {
                 'Cerrar': function() {
                     doublewindow.finalize();
+                    $(this).dialog('close');
+                }
+            }
+        });
+    });
+}
+
+function toolLoadFeatures() {
+    let loadFeatures = (input) => {
+        let file = input.files[0];
+        if (!file) {
+          return;
+        }
+        if (file.type != 'application/vnd.google-earth.kmz') {
+            // kml, geojson
+            let reader = new FileReader();
+            reader.onload = function(e) {
+              let vector = features.loadFromString(
+                e.target.result, map.getView().getProjection());
+              map.addLayer(vector);
+            };
+            reader.readAsText(file);
+        } else {
+            // kmz
+            let vector = features.loadKMZ(
+                file, map.getView().getProjection(), (vector) => {
+                map.addLayer(vector);
+            });
+        }
+    };
+    $(function() {
+        $('#tool-load-features-dialog').dialog({
+            dialogClass: 'noclose',
+            resizable: false,
+            height: 'auto',
+            title: 'Carga de formas',
+            buttons: {
+                'Cargar': function() {
+                    loadFeatures($('#tool-load-features-input')[0]);
+                    $(this).dialog('close');
+                },
+                'Cerrar': function() {
                     $(this).dialog('close');
                 }
             }
