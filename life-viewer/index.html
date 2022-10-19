@@ -29,20 +29,23 @@
       </a>
     </div>
     
+    <!-- toc -->
     <div id="toc">
       <div id="toc-layers">
       </div>
     </div>
     <button id="toc-btn" class="ui-button ui-widget ui-corner-all"></button>
 
+    <!-- tools -->
     <div id="tools-div">
       <ul id="tools-menu">
         <li id="tool-measure"><div>Medición</div></li>
         <li id="tool-doublewindow"><div>Ventana doble</div></li>
+        <li id="tool-load-features"><div>Cargar archivo de formas</div></li>
       </ul>
     </div>
     <button id="tools-btn"></button>
-
+    <!-- tool: measure -->
     <div id="tool-measure-dialog">
       <label for="tool-measure-type">Tipo de medición</label>
       <select id="tool-measure-type" name="tool-measure-type">
@@ -50,7 +53,7 @@
         <option value="Polygon">Área</option>
       </select>
     </div>
-
+    <!-- tool: double window -->
     <div id="tool-doublewindow-dialog">
       <p>
         <label for="tool-doublewindow-active-map">Mapa activo</label>
@@ -67,7 +70,12 @@
         </select>
       </p>
     </div>
+    <!-- tool: load features -->
+    <div id="tool-load-features-dialog">
+      <input id="tool-load-features-input" type="file" accept="application/vnd.google-earth.kml+xml,application/vnd.google-earth.kmz"/>
+    </div>
 
+    <!-- coordinate -->
     <div id="coordinate-utm"></div>
     <div id="scale"></div>
 
