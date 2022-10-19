@@ -7,9 +7,9 @@ import {get as getProjection} from 'ol/proj';
 import MousePosition from 'ol/control/MousePosition';
 import ScaleLine from 'ol/control/ScaleLine';
 
-import * as measure from './modules/tool-measure';
-import * as doublewindow from './modules/tool-doublewindow';
-import * as features from './modules/tool-features';
+import * as measure from './tool-measure';
+import * as doublewindow from './tool-doublewindow';
+import * as features from './tool-features';
 
 // EPSG:32628 projection
 proj4.defs(

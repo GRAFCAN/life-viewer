@@ -1,4 +1,4 @@
-import {initMap} from './scripts.js';
+import {initMap} from './modules/scripts';
 import './style.css';
 
 fetch('/data/layers.json')
