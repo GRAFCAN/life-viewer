@@ -106,12 +106,15 @@ html, body * {
   color: white;
 }
 .ol-rotate {
-  right: none;
+  right: auto;
   left: 8px;
   top: 60px;
 }
 
 /* jquery ui */
+.ui-dialog {
+  font-size: small;
+}
 .ui-widget-header {
   border: none;
   background: var(--blue-color-2);
