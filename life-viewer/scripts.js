@@ -23,9 +23,9 @@ let mousePositionControl;
 
 let view = new View({
     projection: getProjection('EPSG:32628'),
-    center: [326834.62, 3139762.92],
-    extent: [323220.4023237814, 3137760.6135218954, 330131.9412516408, 3141794.416367382],
-    zoom: 15
+    center: import.meta.env.VITE_CENTER.split(',').map(ele => parseFloat(ele)),
+    extent: import.meta.env.VITE_EXTENT.split(',').map(ele => parseFloat(ele)),
+    zoom: parseFloat(import.meta.env.VITE_ZOOM)
 });
 
 export function initMap(data) {
@@ -39,7 +39,7 @@ export function initMap(data) {
                 source: new TileWMS({
                     url: layer.source.url,
                     params: layer.source.params,
-                    serverType: layer.source.serverType
+                    // serverType: layer.source.serverType
                 }),
                 visible: layer.visible
             }));
@@ -97,28 +97,18 @@ function mapPointerMove(evt) {
     }
 }
 
-function viewChangeCenter(evt) {
-
+function viewChange(evt) {
     if (doublewindow.getActive()) {
-        doublewindow.synchronize();
+        doublewindow.synchronize(evt);
     }
-
-}
-
-function viewChangeResolution(evt) {
-
-}
-
-function viewChangeRotation(evt) {
-
 }
 
 function initEvents() {
     map.on('singleclick', mapSingleclick);
     map.on('pointermove', mapPointerMove);
-    map.getView().on('change:center', viewChangeCenter);
-    map.getView().on('change:resolution', viewChangeResolution);
-    map.getView().on('change:rotation', viewChangeRotation);
+    map.getView().on('change:center', viewChange);
+    map.getView().on('change:resolution', viewChange);
+    map.getView().on('change:rotation', viewChange);
 }
 
 function refreshToc() {
@@ -289,22 +279,21 @@ function toolDoubleWindow() {
                     }
                 });
                 doublewindow.execute({
-                    type: 'sync', // sync, extended
+                    type: 'sync',
                     parent_map: map,
                     parent_map_id: 'map',
                     slave_map_id: 'map2',
+                    map_handlers: {
+                        'singleclick': mapSingleclick,
+                        'pointermove': mapPointerMove
+                    },
+                    view_change_handler: viewChange,
                     callback_changeMap: function(active_map) {
                         map = active_map;
                         refreshToc();
                     },
-                    callback_ini: function() {
-                        doublewindow.getSlaveMap().on('singleclick', mapSingleclick);
-                        doublewindow.getSlaveMap().on('pointermove', mapPointerMove);
-                    },
-                    callback_end: function() {
-                        doublewindow.getSlaveMap().un('pointermove', mapPointerMove);
-                        doublewindow.getSlaveMap().un('singleclick', mapSingleclick);
-                    }
+                    callback_ini: () => {},
+                    callback_end: () => {}
                 });
             },
             buttons: {
