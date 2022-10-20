@@ -158,3 +158,10 @@ html, body * {
 .ui-selectmenu-open {
   border: 1px solid var(--text-color);
 }
+
+/* mobile devices */
+@media only screen and (hover: none) and (pointer: coarse) {
+  .ol-mouse-position {
+    display: none;
+  }
+}
