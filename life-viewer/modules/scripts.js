@@ -6,6 +6,7 @@ import TileWMS from 'ol/source/TileWMS';
 import {get as getProjection} from 'ol/proj';
 import MousePosition from 'ol/control/MousePosition';
 import ScaleLine from 'ol/control/ScaleLine';
+import {unByKey} from 'ol/Observable';
 
 import * as measure from './tool-measure';
 import * as doublewindow from './tool-doublewindow';
@@ -19,13 +20,16 @@ proj4.defs(
 register(proj4);
 
 export let map;
+let map_handler = [];
 let mousePositionControl;
 
 let view = new View({
     projection: getProjection('EPSG:32628'),
     center: import.meta.env.VITE_CENTER.split(',').map(ele => parseFloat(ele)),
-    extent: import.meta.env.VITE_EXTENT.split(',').map(ele => parseFloat(ele)),
-    zoom: parseFloat(import.meta.env.VITE_ZOOM)
+    // extent: import.meta.env.VITE_EXTENT.split(',').map(ele => parseFloat(ele)),
+    zoom: parseFloat(import.meta.env.VITE_ZOOM),
+    minZoom: parseFloat(import.meta.env.VITE_MINZOOM),
+    maxZoom: parseFloat(import.meta.env.VITE_MAXZOOM)
 });
 
 export function initMap(data) {
@@ -98,17 +102,22 @@ function mapPointerMove(evt) {
 }
 
 function viewChange(evt) {
+    if (typeof evt.target.get('parent_map') == 'undefined') {
+        console.log('main change:view');
+    }
     if (doublewindow.getActive()) {
         doublewindow.synchronize(evt);
     }
 }
 
 function initEvents() {
-    map.on('singleclick', mapSingleclick);
-    map.on('pointermove', mapPointerMove);
-    map.getView().on('change:center', viewChange);
-    map.getView().on('change:resolution', viewChange);
-    map.getView().on('change:rotation', viewChange);
+    map_handler['singleclick'] = map.on('singleclick', mapSingleclick);
+    map_handler['pointermove'] = map.on('pointermove', mapPointerMove);
+    map_handler['change_view_state'] = map.getView().on(
+        ['change:center', 'change:resolution', 'change:rotation'], viewChange);
+    map_handler['view_error'] = map.getView().on('error', (evt) => {
+        console.log('error on main view');
+    });
 }
 
 function refreshToc() {
@@ -231,15 +240,15 @@ function toolMeasure() {
                         measure.changeType(ui.item.value);
                     }
                 });
-                map.un('singleclick', mapSingleclick);
+                unByKey(map_handler['singleclick']);
                 measure.execute({
                     map: map,
                     type: $('#tool-measure-type').val(),
                     callback_ini: function() {
-                        map.un('singleclick', mapSingleclick);
+                        unByKey(map_handler['singleclick']);
                     },
                     callback_end: function() {
-                        map.on('singleclick', mapSingleclick);
+                        map_handler['singleclick'] = map.on('singleclick', mapSingleclick);
                     }
                 });
             },
@@ -264,7 +273,7 @@ function toolDoubleWindow() {
             resizable: false,
             height: 'auto',
             width: 425,
-            height: 275,
+            height: 210,
             title: 'Doble ventana',
             position: { my: 'right top', at: 'left top', of: $('#tools-btn')},
             open: function(event, ui) {
@@ -279,7 +288,7 @@ function toolDoubleWindow() {
                     }
                 });
                 doublewindow.execute({
-                    type: 'sync',
+                    type: $('#tool-doublewindow-type').val(),
                     parent_map: map,
                     parent_map_id: 'map',
                     slave_map_id: 'map2',
