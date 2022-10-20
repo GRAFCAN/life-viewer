@@ -180,7 +180,7 @@ function openToc() {
         position: { my: 'right top', at: 'left top', of: $('#toc-btn') },
         autoOpen: false,
         width: 300,
-        height: 250,
+        height: 150,
         title: 'Capas'
     });
     if ($('#toc').dialog('isOpen')) {
@@ -231,7 +231,7 @@ function toolMeasure() {
             dialogClass: 'noclose',
             resizable: false,
             height: 'auto',
-            // width: 300,
+            width: 250,
             // height: 150,
             title: 'Medición',
             open: function(event, ui) {
@@ -272,10 +272,10 @@ function toolDoubleWindow() {
             dialogClass: 'noclose',
             resizable: false,
             height: 'auto',
-            width: 425,
+            width: 325,
             height: 210,
             title: 'Doble ventana',
-            position: { my: 'right top', at: 'left top', of: $('#tools-btn')},
+            // position: { my: 'right top', at: 'left top', of: $('#tools-btn')},
             open: function(event, ui) {
                 $('#tool-doublewindow-active-map').selectmenu({
                     select: function(event, ui) {
