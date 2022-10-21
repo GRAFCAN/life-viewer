@@ -146,7 +146,7 @@ html, body * {
 .ui-widget.ui-widget-content {
   border: none;
 }
-/* remove close button 'X' */
+/* remove close button 'X' with .noclose dialog */
 .noclose .ui-dialog-titlebar-close {
   display:none;
 }
