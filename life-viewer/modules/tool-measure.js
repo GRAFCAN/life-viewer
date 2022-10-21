@@ -14,6 +14,7 @@ let measureTooltip;
 let helpTooltipElement;
 let helpTooltip;
 let sketch;
+let callback_end;
 
 const continuePolygonMsg = 'Clic para continuar dibujando el polígono';
 const continueLineMsg = 'Clic para continuar dibujando la línea';
@@ -22,13 +23,21 @@ const source = new VectorSource();
 
 const vector = new VectorLayer({
   source: source,
-  style: {
-    'fill-color': 'rgba(255, 255, 255, 0.2)',
-    'stroke-color': '#ffcc33',
-    'stroke-width': 2,
-    'circle-radius': 7,
-    'circle-fill-color': '#ffcc33',
-  },
+  style: [
+    {
+      'stroke-color': 'rgba(0, 0, 0, 0.6)',
+      // 'stroke-color': 'rgba(25, 103, 119, 1)',
+      'stroke-width': 3
+    },
+    {
+      'fill-color': 'rgba(255, 255, 255, 0.2)',
+      'stroke-color': 'rgb(255, 204, 51)',
+      'stroke-width': 1,
+      'circle-radius': 5,
+      'circle-stroke-color': 'rgba(255, 204, 51, 1)',
+      'circle-fill-color': 'rgba(255, 204, 51, 0.6)',
+    }
+  ]
 });
 
 const pointerMoveHandler = function (evt) {
@@ -71,7 +80,7 @@ function createMeasureTooltip() {
     measureTooltipElement.parentNode.removeChild(measureTooltipElement);
   }
   measureTooltipElement = document.createElement('div');
-  measureTooltipElement.className = 'ol-tooltip ol-tooltip-measure';
+  measureTooltipElement.className = 'ol-tooltip';
   measureTooltip = new Overlay({
     element: measureTooltipElement,
     offset: [0, -15],
@@ -109,27 +118,43 @@ const formatArea = function (polygon) {
 function addInteraction(type) {
     // type: Polygon, LineString
     draw = new Draw({
-        source: source,
-        type: type,
-        style: new Style({
-            fill: new Fill({
-                color: 'rgba(255, 255, 255, 0.2)',
-            }),
-            stroke: new Stroke({
-                color: 'rgba(255, 255, 255, 0.8)',
-                lineDash: [10, 10],
-                width: 2,
-            }),
-            image: new CircleStyle({
-                radius: 5,
-                stroke: new Stroke({
-                color: 'rgba(255, 255, 255, 0.9)',
-                }),
-                fill: new Fill({
-                color: 'rgba(255, 255, 255, 0.2)',
-                }),
-            }),
-        }),
+      source: source,
+      type: type,
+      // style: new Style({
+      //   fill: new Fill({
+      //       color: 'rgba(255, 255, 255, 0.2)',
+      //   }),
+      //   stroke: new Stroke({
+      //       color: 'rgba(255, 255, 255, 0.8)',
+      //       lineDash: [10, 10],
+      //       width: 2,
+      //   }),
+      //   image: new CircleStyle({
+      //       radius: 5,
+      //       stroke: new Stroke({
+      //         color: 'rgba(255, 255, 255, 0.9)',
+      //       }),
+      //       fill: new Fill({
+      //         color: 'rgba(255, 255, 255, 0.2)',
+      //       }),
+      //   }),
+      // })
+      style: [
+        {
+          'stroke-color': 'rgba(0, 0, 0, 0.6)',
+          // 'stroke-color': 'rgba(25, 103, 119, 1)',
+          'stroke-width': 3
+        },
+        {
+          'fill-color': 'rgba(255, 255, 255, 0.2)',
+          'stroke-color': '#ffcc33',
+          'stroke-width': 1,
+          'stroke-line-dash': [10, 10],
+          'circle-radius': 5,
+          'circle-stroke-color': 'rgba(255, 204, 51, 1)',
+          'circle-fill-color': 'rgba(255, 204, 51, 0.6)',
+        }
+      ]
     });
     map.addInteraction(draw);
     createMeasureTooltip();
@@ -202,6 +227,9 @@ export function finalize() {
   helpTooltipElement = measureTooltipElement = null;
   map.removeInteraction(draw);
   map.removeLayer(vector);
+  if (callback_end) {
+    callback_end();
+  }
 }
 
 export function changeType(type) {
@@ -215,6 +243,7 @@ export function execute(opt) {
   if (opt.callback_ini) {
     opt.callback_ini();
   }
+  callback_end = opt.callback_end;
 
   map.on('pointermove', pointerMoveHandler);
   map.addLayer(vector);
