@@ -102,9 +102,6 @@ function mapPointerMove(evt) {
 }
 
 function viewChange(evt) {
-    if (typeof evt.target.get('parent_map') == 'undefined') {
-        console.log('main change:view');
-    }
     if (doublewindow.getActive()) {
         doublewindow.synchronize(evt);
     }
@@ -115,9 +112,6 @@ function initEvents() {
     map_handler['pointermove'] = map.on('pointermove', mapPointerMove);
     map_handler['change_view_state'] = map.getView().on(
         ['change:center', 'change:resolution', 'change:rotation'], viewChange);
-    map_handler['view_error'] = map.getView().on('error', (evt) => {
-        console.log('error on main view');
-    });
 }
 
 function refreshToc() {
