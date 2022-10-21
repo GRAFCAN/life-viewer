@@ -148,6 +148,17 @@ function addInteraction(type) {
         let output;
         if (geom instanceof Polygon) {
           output = formatArea(geom);
+          let perimeter;
+          if (geom.getLinearRing(0).getCoordinates().length > 3) {
+            perimeter = formatLength(new LineString(
+                geom.getLinearRing(0).getCoordinates()));
+          } else {
+            // first edge
+            perimeter = formatLength(new LineString(
+              geom.getLinearRing(0).getCoordinates().slice(
+                0, geom.getLinearRing(0).getCoordinates().length - 1)));
+          }
+          output += ' (' + perimeter + ')';
           tooltipCoord = geom.getInteriorPoint().getCoordinates();
         } else if (geom instanceof LineString) {
           output = formatLength(geom);
