@@ -234,7 +234,6 @@ function toolMeasure() {
                         measure.changeType(ui.item.value);
                     }
                 });
-                unByKey(map_handler['singleclick']);
                 measure.execute({
                     map: map,
                     type: $('#tool-measure-type').val(),
