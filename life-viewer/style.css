@@ -130,7 +130,7 @@ html, body * {
   top: 50%;
   left: 25%;
   margin-top: -8px;
-  margin-left: -4px;
+  margin-left: -3px;
 }
 .ui-icon-closethick {
   background-image: url(/img/btn_close.png) !important;
