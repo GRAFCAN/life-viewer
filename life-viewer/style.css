@@ -133,7 +133,6 @@ html, body * {
   margin-left: -4px;
 }
 .ui-icon-closethick {
-  /* background-image: url(/js/jquery-ui-1.13.2/images/ui-icons_ffffff_256x240.png) !important; */
   background-image: url(/img/btn_close.png) !important;
   background-position: 0 0;
   background-size: contain;
