@@ -47,15 +47,13 @@ html, body * {
 #toc {
   display: none;
 }
-#toc-btn {
+#btn-div {
   position: absolute;
-  top: 2px;
-  right: 2px;
+  top: 0;
+  right: 0;
 }
-#tools-btn {
-  position: absolute;
-  top: 49px;
-  right: 2px;
+#toc-btn, #tools-btn {
+  display: table;
 }
 #tools-div {
   display: none;
@@ -72,19 +70,17 @@ html, body * {
 #tool-load-features-dialog {
   display: none;
 }
-.btn-layers-class {
-  background-image: url(/img/btn_layers.png) !important;
+.btn-layers-class, .btn-tools-class {
   background-position: 0 0;
   background-size: contain;
-  width: 32px;
-  height: 32px;
+  width: 24px;
+  height: 24px;
+}
+.btn-layers-class {
+  background-image: url(/img/btn_layers.png) !important;
 }
 .btn-tools-class {
   background-image: url(/img/btn_tools.png) !important;
-  background-position: 0 0;
-  background-size: contain;
-  width: 32px;
-  height: 32px;
 }
 
 /* OpenLayers */
