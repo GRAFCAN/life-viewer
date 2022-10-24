@@ -31,18 +31,30 @@ html, body * {
   width: 50%;
   height: 100%;
 }
+#feature-info {
+  position: absolute;
+  background: var(--ol-partial-background-color);
+  border-radius: 4px;
+  padding: 2px;
+}
 #logo-life-garachico {
   position: absolute;
   bottom: 4px;
   left: 4px;
-  background-color: rgba(255, 255, 255, 0.4);
+  /* background-color: rgba(255, 255, 255, 0.4);
   padding: 4px;
-  border-radius: 8px;
+  border-radius: 8px; */
 }
 #logo-life {
   position: absolute;
   bottom: 2px;
   right: 4px;
+}
+.trash {
+  position: absolute;
+  right: 2px;
+  width: 16px;
+  cursor: pointer;
 }
 #toc {
   display: none;
