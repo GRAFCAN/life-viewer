@@ -95,10 +95,29 @@ function mapSingleclick(evt) {
     });
 }
 
+function showFeatureInfo(evt) {
+    let features = [];
+    const pixel = map.getEventPixel(evt.originalEvent);
+    map.forEachFeatureAtPixel(pixel, feature => {
+        features.push(feature);
+    });
+    if (features.length == 1) {
+        $('#feature-info').html(features[0].get('name'));
+        $('#feature-info').css('left', pixel[0]);
+        $('#feature-info').css('top', pixel[1]);
+        $('#feature-info').show();
+        $('#' + map.getTarget()).css('cursor', 'pointer');
+    } else {
+        $('#feature-info').hide();
+        $('#' + map.getTarget()).css('cursor', '');
+    }
+}
+
 function mapPointerMove(evt) {
     if (evt.map != mousePositionControl.getMap()) {
         mousePositionControl.setMap(evt.map);
     }
+    showFeatureInfo(evt);
 }
 
 function viewChange(evt) {
@@ -150,7 +169,7 @@ function initControls(data) {
         $('#toc-layers').prepend('<label for="lyr-' + ele.name + '">' + ele.title + '</label>');
         $('#toc-layers').prepend(
             '<input ' + checked + 'type="checkbox" name="layers" id="lyr-' + ele.name + '" value="' + ele.name + '"></input>');
-        $('#lyr-' + ele.name).on('click', () => {
+        document.getElementById('lyr-' + ele.name).addEventListener('click', () => {
             const layer = map.getLayers().getArray().find(layer => layer.get('name') == ele.name);
             layer.setVisible(!layer.getVisible());
         });
@@ -308,6 +327,29 @@ function toolDoubleWindow() {
     });
 }
 
+function addVectorLayer2Toc(ele) {
+    // add vector layer to TOC with remove button
+    const checked = ele.getVisible() ? 'checked ' : '';
+    $('#toc-layers').prepend('<label for="lyr-' + ele.get('name') + '">' + (ele.get('title') || ele.get('name')) + '</label>');
+    $('#toc-layers').prepend(
+        '<input ' + checked + 'type="checkbox" name="layers" id="lyr-' + ele.get('name') + '" value="' + ele.get('name') + '"></input>');
+    $('#toc-layers').prepend('<img id="lyr-' + ele.get('name') + '-remove" src="/img/trash.png" title="Eliminar" class="trash"/>');
+    // layer check
+    document.getElementById('lyr-' + ele.get('name')).addEventListener('click', () => {
+        const layer = map.getLayers().getArray().find(layer => layer.get('name') == ele.get('name'));
+        layer.setVisible(!layer.getVisible());
+    });
+    // layer remove
+    document.getElementById('lyr-' + ele.get('name') + '-remove').addEventListener('click', () => {
+        const layer = map.getLayers().getArray().find(layer => layer.get('name') == ele.get('name'));
+        if (layer) {
+            map.removeLayer(layer);
+            document.querySelectorAll('label[for="lyr-' + ele.get('name') + '"]')[0].remove();
+            document.getElementById('lyr-' + ele.get('name') + '-remove').remove();
+        }
+    });
+}
+
 function toolLoadFeatures() {
     let loadFeatures = (input) => {
         let file = input.files[0];
@@ -321,6 +363,8 @@ function toolLoadFeatures() {
               let vector = features.loadFromString(
                 e.target.result, map.getView().getProjection());
               map.addLayer(vector);
+              vector.set('name', file.name);
+              addVectorLayer2Toc(vector);
             };
             reader.readAsText(file);
         } else {
@@ -328,6 +372,8 @@ function toolLoadFeatures() {
             let vector = features.loadKMZ(
                 file, map.getView().getProjection(), (vector) => {
                 map.addLayer(vector);
+                vector.set('name', file.name);
+                addVectorLayer2Toc(vector);
             });
         }
     };
