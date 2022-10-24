@@ -60,6 +60,10 @@ export function initMap(data) {
     initEvents();
 }
 
+function smallScreen() {
+    return $(window).width() <= 414;
+}
+
 function mapSingleclick(evt) {
     let offset = 10;
     const viewResolution = /** @type {number} */ (view.getResolution());
@@ -83,10 +87,10 @@ function mapSingleclick(evt) {
                 .dialog({
                     autoOpen: false,
                     modal: false,
-                    width: 500,
+                    width: smallScreen() ? 300 : 400,
                     height: 400,
                     title: layer.get('title'),
-                    position: { my: 'left top', at: 'left+' + offset + ' top+' + offset }
+                    position: { my: 'left top', at: 'left top+' + offset }
                 });
                 $(info_div).dialog('open');
                 offset += 40;
@@ -192,7 +196,7 @@ function openToc() {
     $("#toc").dialog({
         position: { my: 'right top', at: 'left top', of: $('#toc-btn') },
         autoOpen: false,
-        width: 300,
+        width: smallScreen() ? 275 : 400,
         height: 150,
         title: 'Capas'
     });
@@ -245,7 +249,6 @@ function toolMeasure() {
             resizable: false,
             height: 'auto',
             width: 250,
-            // height: 150,
             title: 'Medición',
             open: function(event, ui) {
                 $('#tool-measure-type').selectmenu({
