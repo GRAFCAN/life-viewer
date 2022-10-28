@@ -1,5 +1,21 @@
-# Visor LIFE Garachico
+# Proyecto LIFE
 
-Proyecto desarrollado con Node.js para LIFE Garachico.
+# Carpeta `life-viewer`
 
-La vista inicial del mapa del visor (OpenLayers) se ubica en la costa de Garachico, con un nivel de zoom de 15. No se restringe a un determinado extent porque la herramienta de doble ventana falla cuando nos encontramos en los extremos.
+Proyecto NodeJS para el visor [LIFE Garachico](https://lifegarachico.eu/).
+
+## Herramientas
+
+### Medición
+
+Medición de longitudes, áreas y perímetros.
+
+### Doble ventana
+
+Composición de un mapa gemelo. La vista de este segundo mapa puede ser la misma que la del mapa principal o una vista extendida.
+
+El _bounding_ del visor no se restringe porque la herramienta no se comporta correctamente cuando nos encontramos en los extremos de la vista.
+
+### Carga de archivos de formas
+
+Soporta la carga de KML, KMZ y GeoJSON.
