@@ -1,4 +1,5 @@
-import {Map, View} from 'ol';
+import Map from 'ol/Map';
+import View from 'ol/View';
 import TileLayer from 'ol/layer/Tile';
 import TileWMS from 'ol/source/TileWMS';
 import {unByKey} from 'ol/Observable';
