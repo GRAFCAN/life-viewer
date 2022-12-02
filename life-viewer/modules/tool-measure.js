@@ -1,7 +1,6 @@
 import Draw from 'ol/interaction/Draw';
 import {Vector as VectorSource} from 'ol/source';
 import {Vector as VectorLayer} from 'ol/layer';
-import {Circle as CircleStyle, Fill, Stroke, Style} from 'ol/style';
 import Overlay from 'ol/Overlay';
 import {LineString, Polygon} from 'ol/geom';
 import {getArea, getLength} from 'ol/sphere';
@@ -116,94 +115,94 @@ const formatArea = function (polygon) {
 };
 
 function addInteraction(type) {
-    // type: Polygon, LineString
-    draw = new Draw({
-      source: source,
-      type: type,
-      // style: new Style({
-      //   fill: new Fill({
-      //       color: 'rgba(255, 255, 255, 0.2)',
-      //   }),
-      //   stroke: new Stroke({
-      //       color: 'rgba(255, 255, 255, 0.8)',
-      //       lineDash: [10, 10],
-      //       width: 2,
-      //   }),
-      //   image: new CircleStyle({
-      //       radius: 5,
-      //       stroke: new Stroke({
-      //         color: 'rgba(255, 255, 255, 0.9)',
-      //       }),
-      //       fill: new Fill({
-      //         color: 'rgba(255, 255, 255, 0.2)',
-      //       }),
-      //   }),
-      // })
-      style: [
-        {
-          'stroke-color': 'rgba(0, 0, 0, 0.6)',
-          // 'stroke-color': 'rgba(25, 103, 119, 1)',
-          'stroke-width': 3
-        },
-        {
-          'fill-color': 'rgba(255, 255, 255, 0.2)',
-          'stroke-color': '#ffcc33',
-          'stroke-width': 1,
-          'stroke-line-dash': [10, 10],
-          'circle-radius': 5,
-          'circle-stroke-color': 'rgba(255, 204, 51, 1)',
-          'circle-fill-color': 'rgba(255, 204, 51, 0.6)',
+  // type: Polygon, LineString
+  draw = new Draw({
+    source: source,
+    type: type,
+    // style: new Style({
+    //   fill: new Fill({
+    //       color: 'rgba(255, 255, 255, 0.2)',
+    //   }),
+    //   stroke: new Stroke({
+    //       color: 'rgba(255, 255, 255, 0.8)',
+    //       lineDash: [10, 10],
+    //       width: 2,
+    //   }),
+    //   image: new CircleStyle({
+    //       radius: 5,
+    //       stroke: new Stroke({
+    //         color: 'rgba(255, 255, 255, 0.9)',
+    //       }),
+    //       fill: new Fill({
+    //         color: 'rgba(255, 255, 255, 0.2)',
+    //       }),
+    //   }),
+    // })
+    style: [
+      {
+        'stroke-color': 'rgba(0, 0, 0, 0.6)',
+        // 'stroke-color': 'rgba(25, 103, 119, 1)',
+        'stroke-width': 3
+      },
+      {
+        'fill-color': 'rgba(255, 255, 255, 0.2)',
+        'stroke-color': '#ffcc33',
+        'stroke-width': 1,
+        'stroke-line-dash': [10, 10],
+        'circle-radius': 5,
+        'circle-stroke-color': 'rgba(255, 204, 51, 1)',
+        'circle-fill-color': 'rgba(255, 204, 51, 0.6)',
+      }
+    ]
+  });
+  map.addInteraction(draw);
+  createMeasureTooltip();
+  createHelpTooltip();
+
+  let listener;
+  draw.on('drawstart', function (evt) {
+    // set sketch
+    sketch = evt.feature;
+
+    /** @type {import("../src/ol/coordinate.js").Coordinate|undefined} */
+    let tooltipCoord = evt.coordinate;
+
+    listener = sketch.getGeometry().on('change', function (evt) {
+      const geom = evt.target;
+      let output;
+      if (geom instanceof Polygon) {
+        output = formatArea(geom);
+        let perimeter;
+        if (geom.getLinearRing(0).getCoordinates().length > 3) {
+          perimeter = formatLength(new LineString(
+              geom.getLinearRing(0).getCoordinates()));
+        } else {
+          // first edge
+          perimeter = formatLength(new LineString(
+            geom.getLinearRing(0).getCoordinates().slice(
+              0, geom.getLinearRing(0).getCoordinates().length - 1)));
         }
-      ]
+        output += ' (' + perimeter + ')';
+        tooltipCoord = geom.getInteriorPoint().getCoordinates();
+      } else if (geom instanceof LineString) {
+        output = formatLength(geom);
+        tooltipCoord = geom.getLastCoordinate();
+      }
+      measureTooltipElement.innerHTML = output;
+      measureTooltip.setPosition(tooltipCoord);
     });
-    map.addInteraction(draw);
+  });
+
+  draw.on('drawend', function () {
+    measureTooltipElement.className = 'ol-tooltip ol-tooltip-static';
+    measureTooltip.setOffset([0, -7]);
+    // unset sketch
+    sketch = null;
+    // unset tooltip so that a new one can be created
+    measureTooltipElement = null;
     createMeasureTooltip();
-    createHelpTooltip();
-  
-    let listener;
-    draw.on('drawstart', function (evt) {
-      // set sketch
-      sketch = evt.feature;
-  
-      /** @type {import("../src/ol/coordinate.js").Coordinate|undefined} */
-      let tooltipCoord = evt.coordinate;
-  
-      listener = sketch.getGeometry().on('change', function (evt) {
-        const geom = evt.target;
-        let output;
-        if (geom instanceof Polygon) {
-          output = formatArea(geom);
-          let perimeter;
-          if (geom.getLinearRing(0).getCoordinates().length > 3) {
-            perimeter = formatLength(new LineString(
-                geom.getLinearRing(0).getCoordinates()));
-          } else {
-            // first edge
-            perimeter = formatLength(new LineString(
-              geom.getLinearRing(0).getCoordinates().slice(
-                0, geom.getLinearRing(0).getCoordinates().length - 1)));
-          }
-          output += ' (' + perimeter + ')';
-          tooltipCoord = geom.getInteriorPoint().getCoordinates();
-        } else if (geom instanceof LineString) {
-          output = formatLength(geom);
-          tooltipCoord = geom.getLastCoordinate();
-        }
-        measureTooltipElement.innerHTML = output;
-        measureTooltip.setPosition(tooltipCoord);
-      });
-    });
-  
-    draw.on('drawend', function () {
-      measureTooltipElement.className = 'ol-tooltip ol-tooltip-static';
-      measureTooltip.setOffset([0, -7]);
-      // unset sketch
-      sketch = null;
-      // unset tooltip so that a new one can be created
-      measureTooltipElement = null;
-      createMeasureTooltip();
-      unByKey(listener);
-    });
+    unByKey(listener);
+  });
 }
 
 export function clean() {
