@@ -1,6 +1,7 @@
 import proj4 from 'proj4';
 import {register} from 'ol/proj/proj4';
-import {Map, View} from 'ol';
+import Map from 'ol/Map';
+import View from 'ol/View';
 import TileLayer from 'ol/layer/Tile';
 import TileWMS from 'ol/source/TileWMS';
 import {get as getProjection} from 'ol/proj';
@@ -273,7 +274,7 @@ function toolMeasure() {
                 },
                 'Cerrar': function() {
                     measure.finalize();
-                    map.on('singleclick', mapSingleclick);
+                    // map_handler['singleclick'] = map.on('singleclick', mapSingleclick);
                     $(this).dialog('close');
                 }
             }
