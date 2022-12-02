@@ -122,7 +122,6 @@ function mapPointerMove(evt) {
     if (evt.map != mousePositionControl.getMap()) {
         mousePositionControl.setMap(evt.map);
     }
-    showFeatureInfo(evt);
 }
 
 function viewChange(evt) {
@@ -134,6 +133,7 @@ function viewChange(evt) {
 function initEvents() {
     map_handler['singleclick'] = map.on('singleclick', mapSingleclick);
     map_handler['pointermove'] = map.on('pointermove', mapPointerMove);
+    map_handler['featureinfo'] = map.on('pointermove', showFeatureInfo);
     map_handler['change_view_state'] = map.getView().on(
         ['change:center', 'change:resolution', 'change:rotation'], viewChange);
 }
@@ -262,9 +262,11 @@ function toolMeasure() {
                     type: $('#tool-measure-type').val(),
                     callback_ini: function() {
                         unByKey(map_handler['singleclick']);
+                        unByKey(map_handler['featureinfo']);
                     },
                     callback_end: function() {
                         map_handler['singleclick'] = map.on('singleclick', mapSingleclick);
+                        map_handler['featureinfo'] = map.on('pointermove', showFeatureInfo);
                     }
                 });
             },
