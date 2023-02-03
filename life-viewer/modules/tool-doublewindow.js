@@ -19,23 +19,28 @@ let parent_map_handler = [],
     slave_map_handler = [];
 
 function cloneMap(type) {
-    if (!slave_map) {
-        let layers = []
-        parent_map.getLayers().forEach(layer => {
-            if (layer instanceof TileLayer) {
-                layers.push(new TileLayer({
-                    queryable: layer.get('queryable'),
-                    name: layer.get('name'),
-                    title: layer.get('title'),
-                    source: new TileWMS({
-                        url: layer.getSource().getUrls()[0],
-                        params: layer.getSource().getParams(),
-                        // serverType: layer.getSource().serverType_
-                    }),
-                    visible: layer.getVisible()
-                }));
-            }
-        });
+    if (slave_map) {
+        slave_map.getLayers().clear()
+    }
+    let layers = []
+    parent_map.getLayers().forEach(layer => {
+        if (layer instanceof TileLayer) {
+            layers.push(new TileLayer({
+                queryable: layer.get('queryable'),
+                name: layer.get('name'),
+                title: layer.get('title'),
+                source: new TileWMS({
+                    url: layer.getSource().getUrls()[0],
+                    params: layer.getSource().getParams(),
+                    // serverType: layer.getSource().serverType_
+                }),
+                visible: layer.getVisible()
+            }));
+        }
+    });
+    if (slave_map) {
+        slave_map.getLayers().extend(layers)
+    } else {
         slave_map = new Map({
             target: slave_map_id,
             layers: layers
@@ -204,14 +209,15 @@ export function execute(opt) {
 
 export function finalize() {
     if (callback_end) {
-        callback_end();
+        callback_end()
     }
 
-    mapEvents(false);
+    mapEvents(false)
 
-    changeActiveMap('left');
+    changeActiveMap('left')
+    changeMapType('sync')
     
-    restoreWindow();
+    restoreWindow()
 
-    active = false;
+    active = false
 }
