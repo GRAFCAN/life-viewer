@@ -14,7 +14,6 @@ import {unByKey} from 'ol/Observable';
 import * as measure from './tool-measure';
 import * as doublewindow from './tool-doublewindow';
 import * as features from './tool-features';
-import { TileSourceEvent } from 'ol/source/Tile';
 
 // EPSG:32628 projection
 proj4.defs(
@@ -67,7 +66,6 @@ function recLayers(data) {
                 visible: item.visible
             }))
         } else if (item.type.match(/group|folder/) && item.nodes) {
-            // layers = layers.concat(recLayers(item.nodes))
             layers = recLayers(item.nodes).concat(layers)
         }
     })
