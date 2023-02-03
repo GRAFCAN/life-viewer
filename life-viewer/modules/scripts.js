@@ -4,6 +4,8 @@ import Map from 'ol/Map';
 import View from 'ol/View';
 import TileLayer from 'ol/layer/Tile';
 import TileWMS from 'ol/source/TileWMS';
+import ImageLayer from 'ol/layer/Image';
+import ImageWMS from 'ol/source/ImageWMS'
 import {get as getProjection} from 'ol/proj';
 import MousePosition from 'ol/control/MousePosition';
 import ScaleLine from 'ol/control/ScaleLine';
@@ -33,23 +35,47 @@ let view = new View({
     maxZoom: parseFloat(import.meta.env.VITE_MAXZOOM)
 });
 
-export function initMap(data) {
-    let layers = [];
-    data.forEach(layer => {
-        if (layer.type == 'TileLayer') {
-            layers.push(new TileLayer({
-                queryable: layer.queryable,
-                name: layer.name,
-                title: layer.title,
+function recLayers(data) {
+    // retrieve layers from JSON
+    let layers = []
+    data.forEach(item => {
+        if (item.type == 'TileLayer') {
+            layers.unshift(new TileLayer({
+                queryable: item.queryable,
+                name: item.name,
+                title: item.title,
+                opacity: item.opacity,
                 source: new TileWMS({
-                    url: layer.source.url,
-                    params: layer.source.params,
-                    // serverType: layer.source.serverType
+                    url: item.source.url,
+                    params: item.source.params,
+                    // serverType: item.source.serverType
                 }),
-                visible: layer.visible
-            }));
+                visible: item.visible
+            }))
+        } else if (item.type == 'ImageLayer') {
+            layers.unshift(new ImageLayer({
+                queryable: item.queryable,
+                name: item.name,
+                title: item.title,
+                opacity: item.opacity,
+                source: new ImageWMS({
+                    url: item.source.url,
+                    params: item.source.params,
+                    // serverType: item.source.serverType
+                }),
+                visible: item.visible
+            }))
+        } else if (item.type.match(/group|folder/) && item.nodes) {
+            // layers = layers.concat(recLayers(item.nodes))
+            layers = recLayers(item.nodes).concat(layers)
         }
-    });
+    })
+    return layers
+}
+
+export function initMap(data) {
+    let layers = recLayers(data);
+
     map = new Map({
         target: 'map',
         layers: layers,
@@ -154,6 +180,66 @@ function refreshToc() {
     });
 }
 
+function restoreTocState() {
+    map.getLayers().forEach(ele => {
+        const name = ele.get('name')
+        const title = ele.get('title')
+        $(`#lyr-${name}`).checkboxradio()
+        $(`#lyr-${name}`).prop('checked', ele.getVisible()).checkboxradio('refresh')
+    });
+}
+
+function addContent(data, target) {
+    data.forEach(ele => {
+        if (ele.type.match(/layer/i)) {
+            const checked = ele.visible ? 'checked ' : ''
+            const layer_id = `lyr-${ele.name}`
+            let container = $('<div class="layer-container"></div>').appendTo(target)
+            $(container).append(`<label class="layer-label" for="lyr-${ele.name}">${ele.title}</label>`)
+            $(`<input ${checked}type="checkbox" name="layers" id="${layer_id}" value="${ele.name}"></input>`)
+                .appendTo(container)
+                .click(() => {
+                    const layer = map.getLayers().getArray().find(layer => layer.get('name') == ele.name)
+                    layer.setVisible(!layer.getVisible())
+                })
+            if (ele.legend) {
+                $('<img class="legend-img" src="/img/legend.png">')
+                    .appendTo(container)
+                    .click(() => {
+                        let url
+                        if (typeof ele.legend == 'boolean') {
+                            const params = `version=1.3.0&service=WMS&request=GetLegendGraphic&sld_version=1.1.0&layer=${ele.source.params.LAYERS}&format=image/png&STYLE=default`
+                            url = ele.source.url + params
+                        } else {
+                            url = ele.legend
+                        }
+                        $('#legend-img').attr('src', url)
+                        let position = { my: 'right top', at: 'left top', of: '#toc' }
+                        $('#legend').dialog({
+                            title: `Leyenda "${ele.title}"`,
+                            position: position,
+                            minWidth: 300,
+                            maxWidth: 500,
+                            minHeight: 300,
+                            maxHeight: 600
+                        })
+                    })
+            }
+        } else if (ele.type == 'group') {
+            let container = $(`<div id="${ele.name}" class="accordion-group"></div>`).appendTo(target)
+            if (ele.nodes) {
+                addContent(ele.nodes, container)
+            }
+        } else if (ele.type == 'folder') {
+            $(target).append(`<h3>${ele.title}</h3>`)
+            let container = $(`<div id="${ele.name}"></div>`).appendTo(target)
+            if (ele.nodes) {
+                addContent(ele.nodes, container)
+            }
+        }
+    })
+}
+
 function initControls(data) {
     // mouse position
     mousePositionControl = new MousePosition({
@@ -169,16 +255,7 @@ function initControls(data) {
     }));
 
     // add toc layers
-    data.forEach(ele => {
-        const checked = ele.visible ? 'checked ' : '';
-        $('#toc-layers').prepend('<label for="lyr-' + ele.name + '">' + ele.title + '</label>');
-        $('#toc-layers').prepend(
-            '<input ' + checked + 'type="checkbox" name="layers" id="lyr-' + ele.name + '" value="' + ele.name + '"></input>');
-        document.getElementById('lyr-' + ele.name).addEventListener('click', () => {
-            const layer = map.getLayers().getArray().find(layer => layer.get('name') == ele.name);
-            layer.setVisible(!layer.getVisible());
-        });
-    });
+    addContent(data, '#toc-layers')
 
     // toc btn
     $('#toc-btn').button({icon: 'btn-layers-class'});
@@ -191,6 +268,13 @@ function initControls(data) {
     $('#tools-btn').on('click', () => {
         openTools();
     });
+
+    // groups
+    $('.accordion-group').accordion({
+        active: false,
+        collapsible: true,
+        heightStyle: 'content'
+    })
 }
 
 function openToc() {
@@ -317,7 +401,7 @@ function toolDoubleWindow() {
                     view_change_handler: viewChange,
                     callback_changeMap: function(active_map) {
                         map = active_map;
-                        refreshToc();
+                        restoreTocState();
                     },
                     callback_ini: () => {},
                     callback_end: () => {}
@@ -326,6 +410,10 @@ function toolDoubleWindow() {
             buttons: {
                 'Cerrar': function() {
                     doublewindow.finalize();
+                    $('#tool-doublewindow-active-map').val('left')
+                    $('#tool-doublewindow-active-map').selectmenu('refresh')
+                    $('#tool-doublewindow-type').val('sync')
+                    $('#tool-doublewindow-type').selectmenu('refresh')
                     $(this).dialog('close');
                 }
             }

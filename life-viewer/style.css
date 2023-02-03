@@ -58,6 +58,11 @@ html, body * {
 }
 #toc {
   display: none;
+  min-height: 400px !important;
+  min-width: 300px;
+}
+#toc-layers {
+  width: 100%;
 }
 #btn-div {
   position: absolute;
@@ -152,7 +157,6 @@ html, body * {
 }
 .ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active, a.ui-button:active, .ui-button:active, .ui-button.ui-state-active:hover {
   border: none;
-  background: none;
   font-weight: normal;
   color: var(--text-color);
 }
@@ -165,6 +169,35 @@ html, body * {
 }
 .ui-selectmenu-open {
   border: 1px solid var(--text-color);
+}
+
+.layer-label {
+  text-align: left;
+  width: 100%;
+}
+.layer-label.ui-state-active {
+  background: none !important;
+}
+
+.ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active, a.ui-button:active, .ui-button:active, .ui-button.ui-state-active:hover {
+  border: none;
+  font-weight: normal;
+  color: var(--primary-color);
+}
+.ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active, a.ui-button:active, .ui-button:active, .ui-button.ui-state-active:hover {
+  border: 1px solid var(--secondary-color);
+  background: var(--secondary-color);
+  font-weight: normal;
+  color: var(--text-color);
+}
+
+.layer-container {
+  width: 100%;
+  display: flex;
+}
+.legend-img {
+  width: 24px;
+  height: 24px;
 }
 
 /* mobile devices */
