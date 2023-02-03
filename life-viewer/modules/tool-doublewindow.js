@@ -214,9 +214,6 @@ export function finalize() {
 
     mapEvents(false)
 
-    changeActiveMap('left')
-    changeMapType('sync')
-    
     restoreWindow()
 
     active = false

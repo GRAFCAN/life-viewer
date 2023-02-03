@@ -409,12 +409,14 @@ function toolDoubleWindow() {
             },
             buttons: {
                 'Cerrar': function() {
-                    doublewindow.finalize();
+                    doublewindow.changeActiveMap('left')
+                    doublewindow.changeMapType('sync')
                     $('#tool-doublewindow-active-map').val('left')
                     $('#tool-doublewindow-active-map').selectmenu('refresh')
                     $('#tool-doublewindow-type').val('sync')
                     $('#tool-doublewindow-type').selectmenu('refresh')
-                    $(this).dialog('close');
+                    doublewindow.finalize()
+                    $(this).dialog('close')
                 }
             }
         });
