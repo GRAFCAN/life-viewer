@@ -41,19 +41,25 @@ html, body * {
   position: absolute;
   bottom: 4px;
   left: 4px;
-  /* background-color: rgba(255, 255, 255, 0.4);
-  padding: 4px;
-  border-radius: 8px; */
 }
 #logo-life {
   position: absolute;
   bottom: 2px;
   right: 4px;
 }
-.trash {
-  position: absolute;
-  right: 2px;
-  width: 16px;
+.user-layer-div {
+  display: flex;
+}
+.user-layer-label {
+  text-align: left;
+  width: 100%;
+  background: none !important;
+}
+.user-layer-trash {
+  width: 24px;
+  height: 24px;
+  padding-top: 4px;
+  padding-right: 4px;
   cursor: pointer;
 }
 #toc {
@@ -198,6 +204,7 @@ html, body * {
 .legend-img {
   width: 24px;
   height: 24px;
+  padding-top: 4px;
 }
 
 /* mobile devices */

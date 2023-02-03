@@ -222,7 +222,7 @@ function addContent(data, target) {
             const checked = ele.visible ? 'checked ' : ''
             const layer_id = `lyr-${ele.name}`
             let container = $('<div class="layer-container"></div>').appendTo(target)
-            $(container).append(`<label class="layer-label" for="lyr-${ele.name}">${ele.title}</label>`)
+            $(container).append(`<label class="layer-label" for="${layer_id}">${ele.title}</label>`)
             $(`<input ${checked}type="checkbox" name="layers" id="${layer_id}" value="${ele.name}"></input>`)
                 .appendTo(container)
                 .click(() => {
@@ -309,7 +309,9 @@ function openToc() {
         position: { my: 'right top', at: 'left top', of: $('#toc-btn') },
         autoOpen: false,
         width: smallScreen() ? 275 : 400,
+        minWidth: smallScreen() ? 275 : 400,
         height: 150,
+        maxHeight: 800,
         title: 'Capas'
     });
     if ($('#toc').dialog('isOpen')) {
@@ -452,25 +454,27 @@ function toolDoubleWindow() {
 
 function addVectorLayer2Toc(ele) {
     // add vector layer to TOC with remove button
-    const checked = ele.getVisible() ? 'checked ' : '';
-    $('#toc-layers').prepend('<label for="lyr-' + ele.get('name') + '">' + (ele.get('title') || ele.get('name')) + '</label>');
-    $('#toc-layers').prepend(
-        '<input ' + checked + 'type="checkbox" name="layers" id="lyr-' + ele.get('name') + '" value="' + ele.get('name') + '"></input>');
-    $('#toc-layers').prepend('<img id="lyr-' + ele.get('name') + '-remove" src="/img/trash.png" title="Eliminar" class="trash"/>');
+    const checked = ele.getVisible() ? 'checked ' : ''
+    const name = ele.get('name').replace(/[\s|&;$%@"<>()+,]/g, '_')
+    const layer_id = `lyr-${name}`
+    let div = $(`<div id="lyr-div-${name}" class="user-layer-div"></div>`).prependTo('#toc-layers')
+    div.append(`<img id="${layer_id}-remove" src="/img/trash.png" title="Eliminar" class="user-layer-trash"/>`)
+    div.append(`<label for="${layer_id}" class="user-layer-label">${ele.get('filename')}</label>`)
+    div.append(`<input ${checked}type="checkbox" name="layers" id="${layer_id}" value="${ele.get('name')}"></input>`)
+    $(`input[id="${layer_id}"]`).checkboxradio()
     // layer check
-    document.getElementById('lyr-' + ele.get('name')).addEventListener('click', () => {
-        const layer = map.getLayers().getArray().find(layer => layer.get('name') == ele.get('name'));
-        layer.setVisible(!layer.getVisible());
+    document.getElementById(layer_id).addEventListener('click', () => {
+        const layer = map.getLayers().getArray().find(layer => layer.get('name') == ele.get('name'))
+        layer.setVisible(!layer.getVisible())
     });
     // layer remove
-    document.getElementById('lyr-' + ele.get('name') + '-remove').addEventListener('click', () => {
-        const layer = map.getLayers().getArray().find(layer => layer.get('name') == ele.get('name'));
+    document.getElementById(`${layer_id}-remove`).addEventListener('click', () => {
+        const layer = map.getLayers().getArray().find(layer => layer.get('name') == ele.get('name'))
         if (layer) {
-            map.removeLayer(layer);
-            document.querySelectorAll('label[for="lyr-' + ele.get('name') + '"]')[0].remove();
-            document.getElementById('lyr-' + ele.get('name') + '-remove').remove();
+            map.removeLayer(layer)
+            $(`#lyr-div-${name}`).remove()
         }
-    });
+    })
 }
 
 function toolLoadFeatures() {
@@ -479,6 +483,8 @@ function toolLoadFeatures() {
         if (!file) {
           return;
         }
+        let name = file.name.match(/(.+)(\..+)$/i)
+        name = name ? name[1] : file.name
         if (file.type != 'application/vnd.google-earth.kmz') {
             // kml, geojson
             let reader = new FileReader();
@@ -486,18 +492,21 @@ function toolLoadFeatures() {
               let vector = features.loadFromString(
                 e.target.result, map.getView().getProjection());
               map.addLayer(vector);
-              vector.set('name', file.name);
+              vector.set('name', name);
+              vector.set('filename', file.name)
               addVectorLayer2Toc(vector);
-            };
+            }
             reader.readAsText(file);
         } else {
             // kmz
             let vector = features.loadKMZ(
                 file, map.getView().getProjection(), (vector) => {
-                map.addLayer(vector);
-                vector.set('name', file.name);
-                addVectorLayer2Toc(vector);
-            });
+                    map.addLayer(vector);
+                    vector.set('name', name);
+                    vector.set('filename', file.name)
+                    addVectorLayer2Toc(vector);
+                }
+            )
         }
     };
     $(function() {
