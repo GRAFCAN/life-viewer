@@ -14,6 +14,7 @@ import {unByKey} from 'ol/Observable';
 import * as measure from './tool-measure';
 import * as doublewindow from './tool-doublewindow';
 import * as features from './tool-features';
+import { TileSourceEvent } from 'ol/source/Tile';
 
 // EPSG:32628 projection
 proj4.defs(
@@ -91,9 +92,19 @@ function smallScreen() {
     return $(window).width() <= 414;
 }
 
+function addInfoTab(name, title, url) {
+    const id = `info-${name}`
+    const tabs = $('#info-tabs').tabs()
+    const li = `<li><a href="#${id}">${title}</a></li>`
+    tabs.find('.ui-tabs-nav').append(li)
+    tabs.append(`<div id="${id}"><iframe style="border:0px" src="${url}" width="100%" height="100%"></iframe></div>`)
+    tabs.tabs('refresh')
+}
+
 function mapSingleclick(evt) {
     let offset = 10;
     const viewResolution = /** @type {number} */ (view.getResolution());
+    let urls = []
     map.getLayers().forEach((layer, index, arr) => {
         if (layer.get('queryable') && layer.getVisible()) {
             const url = layer.getSource().getFeatureInfoUrl(
@@ -103,27 +114,48 @@ function mapSingleclick(evt) {
                 {'INFO_FORMAT': 'text/html'}
             );
             if (url) {
-                let info_div = document.getElementById('info_' + layer.get('name'));
-                if (!info_div) {
-                    info_div = document.createElement('div');
-                    document.body.appendChild(info_div);
-                }
-                $(info_div).html(
-                    '<iframe style="border: 0px; " src="' + url + '" width="100%" height="100%"></iframe>'
-                )
-                .dialog({
-                    autoOpen: false,
-                    modal: false,
-                    width: smallScreen() ? 300 : 400,
-                    height: 400,
+                // let info_div = document.getElementById('info_' + layer.get('name'));
+                // if (!info_div) {
+                //     info_div = document.createElement('div');
+                //     document.body.appendChild(info_div);
+                // }
+                // $(info_div).html(
+                //     '<iframe style="border: 0px; " src="' + url + '" width="100%" height="100%"></iframe>'
+                // )
+                // .dialog({
+                //     autoOpen: false,
+                //     modal: false,
+                //     width: smallScreen() ? 300 : 400,
+                //     height: 400,
+                //     title: layer.get('title'),
+                //     position: { my: 'left top', at: 'left top+' + offset }
+                // });
+                // $(info_div).dialog('open');
+                // offset += 40;
+                urls.push({
+                    name: layer.get('name'),
                     title: layer.get('title'),
-                    position: { my: 'left top', at: 'left top+' + offset }
-                });
-                $(info_div).dialog('open');
-                offset += 40;
+                    url: url
+                })
             }
         }
-    });
+    })
+    if (urls.length) {
+        $('#info').dialog({
+            title: "Información",
+            position: {my: 'left top', at: 'left top'},
+            minWidth: 500,
+            maxWidth: 800,
+            minHeight: 300,
+            maxHeight: 600
+        })
+        // remove tabs
+        $('#info').html('<div id="info-tabs"><ul></ul></div>')
+        urls.forEach(item => {
+            addInfoTab(item.name, item.title, item.url)
+        })
+        $(`#info-tabs >ul >li >a`).first().click()
+    }
 }
 
 function showFeatureInfo(evt) {
@@ -189,6 +221,22 @@ function restoreTocState() {
     });
 }
 
+function addLegendTab(name, title, url) {
+    const id = `legend-${name}`
+    if ($(`#${id}`).length) {
+        // the legend already has tab
+        $(`#legend-tabs >ul >li >a[href="#${id}"]`).click()
+        return
+    }
+    const tabs = $('#legend-tabs').tabs()
+    const li = `<li><a href="#${id}">${title}</a></li>`
+    tabs.find('.ui-tabs-nav').append(li)
+    tabs.append(`<div id="${id}"><img src="${url}"></div>`)
+    tabs.tabs('refresh')
+    // show tab content
+    $('#legend-tabs >ul >li').last().find('a').click()
+}
+
 function addContent(data, target) {
     data.forEach(ele => {
         if (ele.type.match(/layer/i)) {
@@ -213,16 +261,16 @@ function addContent(data, target) {
                         } else {
                             url = ele.legend
                         }
-                        $('#legend-img').attr('src', url)
                         let position = { my: 'right top', at: 'left top', of: '#toc' }
                         $('#legend').dialog({
-                            title: `Leyenda "${ele.title}"`,
+                            title: "Leyenda",
                             position: position,
-                            minWidth: 300,
-                            maxWidth: 500,
+                            minWidth: 500,
+                            maxWidth: 800,
                             minHeight: 300,
                             maxHeight: 600
                         })
+                        addLegendTab(ele.name, ele.title, url)
                     })
             }
         } else if (ele.type == 'group') {
