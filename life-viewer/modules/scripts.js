@@ -92,46 +92,26 @@ function smallScreen() {
     return $(window).width() <= 414;
 }
 
-function addInfoTab(name, title, url) {
+function addInfoTab(name, title, url, height=300) {
     const id = `info-${name}`
     const tabs = $('#info-tabs').tabs()
     const li = `<li><a href="#${id}">${title}</a></li>`
     tabs.find('.ui-tabs-nav').append(li)
-    tabs.append(`<div id="${id}"><iframe style="border:0px" src="${url}" width="100%" height="100%"></iframe></div>`)
+    tabs.append(`<div id="${id}"><iframe style="border:0px" src="${url}" width="100%" height="${height}px"></iframe></div>`)
     tabs.tabs('refresh')
 }
 
 function mapSingleclick(evt) {
-    let offset = 10;
-    const viewResolution = /** @type {number} */ (view.getResolution());
     let urls = []
     map.getLayers().forEach((layer, index, arr) => {
         if (layer.get('queryable') && layer.getVisible()) {
             const url = layer.getSource().getFeatureInfoUrl(
                 evt.coordinate,
-                viewResolution,
+                view.getResolution(),
                 'EPSG:32628',
                 {'INFO_FORMAT': 'text/html'}
-            );
+            )
             if (url) {
-                // let info_div = document.getElementById('info_' + layer.get('name'));
-                // if (!info_div) {
-                //     info_div = document.createElement('div');
-                //     document.body.appendChild(info_div);
-                // }
-                // $(info_div).html(
-                //     '<iframe style="border: 0px; " src="' + url + '" width="100%" height="100%"></iframe>'
-                // )
-                // .dialog({
-                //     autoOpen: false,
-                //     modal: false,
-                //     width: smallScreen() ? 300 : 400,
-                //     height: 400,
-                //     title: layer.get('title'),
-                //     position: { my: 'left top', at: 'left top+' + offset }
-                // });
-                // $(info_div).dialog('open');
-                // offset += 40;
                 urls.push({
                     name: layer.get('name'),
                     title: layer.get('title'),
@@ -141,16 +121,17 @@ function mapSingleclick(evt) {
         }
     })
     if (urls.length) {
+        // remove tabs
+        $('#info').html('<div id="info-tabs"><ul></ul></div>')
         $('#info').dialog({
-            title: "Información",
+            title: 'Información',
             position: {my: 'left top', at: 'left top'},
+            width: smallScreen() ? 300 : 400,
             minWidth: 500,
             maxWidth: 800,
             minHeight: 300,
-            maxHeight: 600
+            maxHeight: 800,
         })
-        // remove tabs
-        $('#info').html('<div id="info-tabs"><ul></ul></div>')
         urls.forEach(item => {
             addInfoTab(item.name, item.title, item.url)
         })
