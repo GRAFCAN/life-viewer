@@ -91,12 +91,27 @@ function smallScreen() {
 }
 
 function addInfoTab(name, title, url, height=300) {
-    const id = `info-${name}`
-    const tabs = $('#info-tabs').tabs()
-    const li = `<li><a href="#${id}">${title}</a></li>`
-    tabs.find('.ui-tabs-nav').append(li)
-    tabs.append(`<div id="${id}"><iframe style="border:0px" src="${url}" width="100%" height="${height}px"></iframe></div>`)
-    tabs.tabs('refresh')
+    // Resolves to true when url returns not empty info
+    return new Promise((resolve) => {
+        $.get({
+            url: url,
+            async: false,
+            success: (responseText) => {
+                if (responseText != '') {
+                    const id = `info-${name}`
+                    const tabs = $('#info-tabs').tabs()
+                    const li = `<li><a href="#${id}">${title}</a></li>`
+                    tabs.find('.ui-tabs-nav').append(li)
+                    tabs.append(`<div id="${id}"><iframe style="border:0px" src="${url}" width="100%" height="${height}px"></iframe></div>`)
+                    tabs.tabs('refresh')
+                    resolve(true)
+                } else {
+                    resolve(false)
+                }
+            },
+            error: () => { resolve(false) }
+        })
+    })
 }
 
 function removeAllInfoTabs() {
@@ -135,10 +150,23 @@ function mapSingleclick(evt) {
             minHeight: 300,
             maxHeight: 800,
         })
+
+        let has_info = false
+        let count = 0
         urls.forEach(item => {
             addInfoTab(item.name, item.title, item.url)
+                .then((value) => {
+                    ++count
+                    has_info |= value
+                    if (count == urls.length) {
+                        if (has_info) {
+                            $(`#info-tabs >ul >li >a`).first().click()
+                        } else {
+                            $('#info').dialog('close')
+                        }
+                    }
+                })
         })
-        $(`#info-tabs >ul >li >a`).first().click()
     }
 }
 
