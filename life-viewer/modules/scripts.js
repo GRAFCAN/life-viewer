@@ -95,7 +95,7 @@ function addInfoTab(name, title, url, height=300) {
     return new Promise((resolve) => {
         $.get({
             url: url,
-            async: false,
+            async: false, // if true urls resolve unordered
             success: (responseText) => {
                 if (responseText != '') {
                     const id = `info-${name}`
@@ -155,7 +155,7 @@ function mapSingleclick(evt) {
         urls.forEach(item => {
             addInfoTab(item.name, item.title, item.url)
                 .then((value) => {
-                    // value is true if url returns info
+                    // value is true if item.url returned info
                     ++count
                     has_info |= value
                     if (count == urls.length) {
@@ -208,21 +208,21 @@ function initEvents() {
         ['change:center', 'change:resolution', 'change:rotation'], viewChange);
 }
 
-function refreshToc() {
-    $('#toc-layers').empty();
-    map.getLayers().forEach(ele => {
-        const name = ele.get('name')
-        const title = ele.get('title')
-        const checked = ele.getVisible() ? 'checked ' : '';
-        $('#toc-layers').prepend('<label for="lyr-' + name + '">' + title + '</label>');
-        $('#toc-layers').prepend(
-            '<input ' + checked + 'type="checkbox" name="layers" id="lyr-' + name + '" value="' + name + '"></input>');
-        $('#lyr-' + name).on('click', () => {
-            const layer = map.getLayers().getArray().find(layer => layer.get('name') == name);
-            layer.setVisible(!layer.getVisible());
-        });
-    });
-}
+// function refreshToc() {
+//     $('#toc-layers').empty();
+//     map.getLayers().forEach(ele => {
+//         const name = ele.get('name')
+//         const title = ele.get('title')
+//         const checked = ele.getVisible() ? 'checked ' : '';
+//         $('#toc-layers').prepend('<label for="lyr-' + name + '">' + title + '</label>');
+//         $('#toc-layers').prepend(
+//             '<input ' + checked + 'type="checkbox" name="layers" id="lyr-' + name + '" value="' + name + '"></input>');
+//         $('#lyr-' + name).on('click', () => {
+//             const layer = map.getLayers().getArray().find(layer => layer.get('name') == name);
+//             layer.setVisible(!layer.getVisible());
+//         });
+//     });
+// }
 
 function restoreTocState() {
     map.getLayers().forEach(ele => {
