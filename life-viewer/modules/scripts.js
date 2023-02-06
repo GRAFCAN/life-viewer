@@ -150,12 +150,12 @@ function mapSingleclick(evt) {
             minHeight: 300,
             maxHeight: 800,
         })
-
         let has_info = false
         let count = 0
         urls.forEach(item => {
             addInfoTab(item.name, item.title, item.url)
                 .then((value) => {
+                    // value is true if url returns info
                     ++count
                     has_info |= value
                     if (count == urls.length) {
