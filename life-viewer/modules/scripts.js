@@ -124,8 +124,8 @@ function mapSingleclick(evt) {
         $('#info').dialog({
             title: 'Información',
             position: {my: 'left top', at: 'left top'},
-            width: smallScreen() ? 300 : 400,
-            minWidth: 500,
+            width: smallScreen() ? 400 : 400,
+            minWidth: smallScreen() ? 400 : 500,
             maxWidth: 800,
             minHeight: 300,
             maxHeight: 800,
@@ -243,8 +243,8 @@ function addContent(data, target) {
                         let position = { my: 'right top', at: 'left top', of: '#toc' }
                         $('#legend').dialog({
                             title: "Leyenda",
-                            position: position,
-                            minWidth: 500,
+                            position: smallScreen() ? void(0) : position,
+                            minWidth: smallScreen() ? 300 : 500,
                             maxWidth: 800,
                             minHeight: 300,
                             maxHeight: 600,

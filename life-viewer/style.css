@@ -214,4 +214,9 @@ html, body * {
   .ol-mouse-position {
     display: none;
   }
+  #toc {
+    display: none;
+    min-height: 400px !important;
+    min-width: 200px;
+  }
 }
