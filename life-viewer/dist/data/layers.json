@@ -1,0 +1,646 @@
+[
+    {
+        "type": "group",
+        "name": "grpRoot",
+        "nodes": [
+            {
+                "type": "folder",
+                "name": "fldPeligrosidad",
+                "title": "PELIGROSIDAD",
+                "nodes": [
+                    {
+                        "type": "group",
+                        "name": "grpPeligrosidad_actual",
+                        "nodes": [
+                            {
+                                "type": "folder",
+                                "name": "fldPeligrosidad_actual",
+                                "title": "Escenario actual. Variable profundidad del agua (m)",
+                                "nodes": [
+                                    {
+                                        "type": "TileLayer",
+                                        "queryable": false,
+                                        "name": "PEL_ACT_2A",
+                                        "title": "Peligrosidad histórica para un periodo de retorno de 2 años",
+                                        "visible": false,
+                                        "opacity": 0.7,
+                                        "source": {
+                                            "type": "TileWMS",
+                                            "url": "https://preide.grafcan.es/ServicioWMS/mapserv?map=/home/datoslocal/mapas/LIFE/LIFE.map&",
+                                            "params": {"LAYERS": "PEL_ACT_2A", "FORMAT": "image/png", "TILED": true},
+                                            "serverType": "mapserver"
+                                        }
+                                    },
+                                    {
+                                        "type": "TileLayer",
+                                        "queryable": false,
+                                        "name": "PEL_ACT_100A",
+                                        "title": "Peligrosidad histórica para un periodo de retorno de 100 años",
+                                        "visible": false,
+                                        "opacity": 0.7,
+                                        "source": {
+                                            "type": "TileWMS",
+                                            "url": "https://preide.grafcan.es/ServicioWMS/mapserv?map=/home/datoslocal/mapas/LIFE/LIFE.map&",
+                                            "params": {"LAYERS": "PEL_ACT_100A", "FORMAT": "image/png", "TILED": true},
+                                            "serverType": "mapserver"
+                                        }
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "type": "group",
+                        "name": "grpPeligrosidad_rcp4.5_actual",
+                        "nodes": [
+                            {
+                                "type": "folder",
+                                "name": "fldPeligrosidad_rcp4.5_mitad",
+                                "title": "Escenario RCP4.5 a mitad de siglo. Variable profundidad del agua (m)",
+                                "nodes": [
+                                    {
+                                        "type": "TileLayer",
+                                        "queryable": false,
+                                        "name": "PEL_RCP45_MITADS_2A",
+                                        "title": "Peligrosidad escenario RCP4.5 2025-2045 para un periodo de retorno de 2 años",
+                                        "visible": false,
+                                        "opacity": 0.7,
+                                        "source": {
+                                            "type": "TileWMS",
+                                            "url": "https://preide.grafcan.es/ServicioWMS/mapserv?map=/home/datoslocal/mapas/LIFE/LIFE.map&",
+                                            "params": {"LAYERS": "PEL_RCP45_MITADS_2A", "FORMAT": "image/png", "TILED": true},
+                                            "serverType": "mapserver"
+                                        }
+                                    },
+                                    {
+                                        "type": "TileLayer",
+                                        "queryable": false,
+                                        "name": "PEL_RCP45_MITADS_100A",
+                                        "title": "Peligrosidad escenario RCP4.5 2025-2045 para un periodo de retorno de 100 años",
+                                        "visible": false,
+                                        "opacity": 0.7,
+                                        "source": {
+                                            "type": "TileWMS",
+                                            "url": "https://preide.grafcan.es/ServicioWMS/mapserv?map=/home/datoslocal/mapas/LIFE/LIFE.map&",
+                                            "params": {"LAYERS": "PEL_RCP45_MITADS_100A", "FORMAT": "image/png", "TILED": true},
+                                            "serverType": "mapserver"
+                                        }
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "type": "group",
+                        "name": "grpPeligrosidad_rcp4.5_final",
+                        "nodes": [
+                            {
+                                "type": "folder",
+                                "name": "fldPeligrosidad_rcp4.5_final",
+                                "title": "Escenario RCP4.5 a final de siglo. Variable profundidad del agua (m)",
+                                "nodes": [
+                                    {
+                                        "type": "TileLayer",
+                                        "queryable": false,
+                                        "name": "PEL_RCP45_FINALS_2A",
+                                        "title": "Peligrosidad escenario RCP4.5 2080-2100 para un periodo de retorno de 2 años",
+                                        "visible": false,
+                                        "opacity": 0.7,
+                                        "source": {
+                                            "type": "TileWMS",
+                                            "url": "https://preide.grafcan.es/ServicioWMS/mapserv?map=/home/datoslocal/mapas/LIFE/LIFE.map&",
+                                            "params": {"LAYERS": "PEL_RCP45_FINALS_2A", "FORMAT": "image/png", "TILED": true},
+                                            "serverType": "mapserver"
+                                        }
+                                    },
+                                    {
+                                        "type": "TileLayer",
+                                        "queryable": false,
+                                        "name": "PEL_RCP45_FINALS_100A",
+                                        "title": "Peligrosidad escenario RCP4.5 2080-2100 para un periodo de retorno de 100 años",
+                                        "visible": false,
+                                        "opacity": 0.7,
+                                        "source": {
+                                            "type": "TileWMS",
+                                            "url": "https://preide.grafcan.es/ServicioWMS/mapserv?map=/home/datoslocal/mapas/LIFE/LIFE.map&",
+                                            "params": {"LAYERS": "PEL_RCP45_FINALS_100A", "FORMAT": "image/png", "TILED": true},
+                                            "serverType": "mapserver"
+                                        }
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "type": "group",
+                        "name": "grpPeligrosidad_rcp8.5_mitad",
+                        "nodes": [
+                            {
+                                "type": "folder",
+                                "name": "fldPeligrosidad_rcp8.5_mitad",
+                                "title": "Escenario RCP8.5 a mitad de siglo. Variable profundidad del agua (m)",
+                                "nodes": [
+                                    {
+                                        "type": "TileLayer",
+                                        "queryable": false,
+                                        "name": "PEL_RCP85_MITADS_2A",
+                                        "title": "Peligrosidad escenario RCP8.5 2025-2045 para un periodo de retorno de 2 años",
+                                        "visible": false,
+                                        "opacity": 0.7,
+                                        "source": {
+                                            "type": "TileWMS",
+                                            "url": "https://preide.grafcan.es/ServicioWMS/mapserv?map=/home/datoslocal/mapas/LIFE/LIFE.map&",
+                                            "params": {"LAYERS": "PEL_RCP85_MITADS_2A", "FORMAT": "image/png", "TILED": true},
+                                            "serverType": "mapserver"
+                                        }
+                                    },
+                                    {
+                                        "type": "TileLayer",
+                                        "queryable": false,
+                                        "name": "PEL_RCP85_MITADS_100A",
+                                        "title": "Peligrosidad escenario RCP8.5 2025-2045 para un periodo de retorno de 100 años",
+                                        "visible": false,
+                                        "opacity": 0.7,
+                                        "source": {
+                                            "type": "TileWMS",
+                                            "url": "https://preide.grafcan.es/ServicioWMS/mapserv?map=/home/datoslocal/mapas/LIFE/LIFE.map&",
+                                            "params": {"LAYERS": "PEL_RCP85_MITADS_100A", "FORMAT": "image/png", "TILED": true},
+                                            "serverType": "mapserver"
+                                        }
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "type": "group",
+                        "name": "grpPeligrosidad_rcp8.5_final",
+                        "nodes": [
+                            {
+                                "type": "folder",
+                                "name": "fldPeligrosidad_rcp8.5_final",
+                                "title": "Escenario RCP8.5 a final de siglo. Variable profundidad del agua (m)",
+                                "nodes": [
+                                    {
+                                        "type": "TileLayer",
+                                        "queryable": false,
+                                        "name": "PEL_RCP85_FINALS_2A",
+                                        "title": "Peligrosidad escenario RCP8.5 2080-2100 para un periodo de retorno de 2 años",
+                                        "visible": false,
+                                        "opacity": 0.7,
+                                        "source": {
+                                            "type": "TileWMS",
+                                            "url": "https://preide.grafcan.es/ServicioWMS/mapserv?map=/home/datoslocal/mapas/LIFE/LIFE.map&",
+                                            "params": {"LAYERS": "PEL_RCP85_FINALS_2A", "FORMAT": "image/png", "TILED": true},
+                                            "serverType": "mapserver"
+                                        }
+                                    },
+                                    {
+                                        "type": "TileLayer",
+                                        "queryable": false,
+                                        "name": "PEL_RCP85_FINALS_100A",
+                                        "title": "Peligrosidad escenario RCP8.5 2080-2100 para un periodo de retorno de 100 años",
+                                        "visible": false,
+                                        "opacity": 0.7,
+                                        "source": {
+                                            "type": "TileWMS",
+                                            "url": "https://preide.grafcan.es/ServicioWMS/mapserv?map=/home/datoslocal/mapas/LIFE/LIFE.map&",
+                                            "params": {"LAYERS": "PEL_RCP85_FINALS_100A", "FORMAT": "image/png", "TILED": true},
+                                            "serverType": "mapserver"
+                                        }
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "type": "folder",
+                "name": "fldExposicion",
+                "title": "EXPOSICIÓN",
+                "nodes": [
+                    {
+                        "type": "TileLayer",
+                        "queryable": true,
+                        "name": "exp_pob_total",
+                        "title": "Población total",
+                        "visible": false,
+                        "opacity": 0.7,
+                        "legend": true,
+                        "source": {
+                            "type": "TileWMS",
+                            "url": "https://preide.grafcan.es/ServicioWMS/mapserv?map=/home/datoslocal/mapas/LIFE/LIFE.map&",
+                            "params": {"LAYERS": "EXP_POB_TOTAL", "FORMAT": "image/png", "TILED": true},
+                            "serverType": "mapserver"
+                        }
+                    },
+                    {
+                        "type": "TileLayer",
+                        "queryable": true,
+                        "name": "exp_pob_dpte",
+                        "title": "Población dependiente",
+                        "visible": false,
+                        "opacity": 0.7,
+                        "legend": true,
+                        "source": {
+                            "type": "TileWMS",
+                            "url": "https://preide.grafcan.es/ServicioWMS/mapserv?map=/home/datoslocal/mapas/LIFE/LIFE.map&",
+                            "params": {"LAYERS": "EXP_POB_DPTE", "FORMAT": "image/png", "TILED": true},
+                            "serverType": "mapserver"
+                        }
+                    },
+                    {
+                        "type": "TileLayer",
+                        "queryable": true,
+                        "name": "exp_usos_suelo",
+                        "title": "Usos de suelo",
+                        "visible": false,
+                        "opacity": 0.7,
+                        "legend": true,
+                        "source": {
+                            "type": "TileWMS",
+                            "url": "https://preide.grafcan.es/ServicioWMS/mapserv?map=/home/datoslocal/mapas/LIFE/LIFE.map&",
+                            "params": {"LAYERS": "EXP_USOS_SUELO", "FORMAT": "image/png", "TILED": true},
+                            "serverType": "mapserver"
+                        }
+                    },
+                    {
+                        "type": "TileLayer",
+                        "queryable": true,
+                        "name": "exp_edif_ant",
+                        "title": "Edificaciones - Antigüedad",
+                        "visible": false,
+                        "opacity": 0.7,
+                        "legend": true,
+                        "source": {
+                            "type": "TileWMS",
+                            "url": "https://preide.grafcan.es/ServicioWMS/mapserv?map=/home/datoslocal/mapas/LIFE/LIFE.map&",
+                            "params": {"LAYERS": "EXP_EDIF_ANT", "FORMAT": "image/png", "TILED": true},
+                            "serverType": "mapserver"
+                        }
+                    },
+                    {
+                        "type": "TileLayer",
+                        "queryable": true,
+                        "name": "exp_edif_cal",
+                        "title": "Edificaciones - Calidad",
+                        "visible": false,
+                        "opacity": 0.7,
+                        "legend": true,
+                        "source": {
+                            "type": "TileWMS",
+                            "url": "https://preide.grafcan.es/ServicioWMS/mapserv?map=/home/datoslocal/mapas/LIFE/LIFE.map&",
+                            "params": {"LAYERS": "EXP_EDIF_CAL", "FORMAT": "image/png", "TILED": true},
+                            "serverType": "mapserver"
+                        }
+                    },
+                    {
+                        "type": "TileLayer",
+                        "queryable": true,
+                        "name": "exp_edif_plantas",
+                        "title": "Edificaciones - Plantas de sótanos",
+                        "visible": false,
+                        "opacity": 0.7,
+                        "legend": true,
+                        "source": {
+                            "type": "TileWMS",
+                            "url": "https://preide.grafcan.es/ServicioWMS/mapserv?map=/home/datoslocal/mapas/LIFE/LIFE.map&",
+                            "params": {"LAYERS": "EXP_EDIF_PLANTAS", "FORMAT": "image/png", "TILED": true},
+                            "serverType": "mapserver"
+                        }
+                    },
+                    {
+                        "type": "TileLayer",
+                        "queryable": true,
+                        "name": "exp_mobiliario",
+                        "title": "Mobiliario",
+                        "visible": false,
+                        "opacity": 0.7,
+                        "legend": true,
+                        "source": {
+                            "type": "TileWMS",
+                            "url": "https://preide.grafcan.es/ServicioWMS/mapserv?map=/home/datoslocal/mapas/LIFE/LIFE.map&",
+                            "params": {"LAYERS": "EXP_MOBILIARIO", "FORMAT": "image/png", "TILED": true},
+                            "serverType": "mapserver"
+                        }
+                    },
+                    {
+                        "type": "TileLayer",
+                        "queryable": true,
+                        "name": "exp_patrinat",
+                        "title": "Patrimonio natural",
+                        "visible": false,
+                        "opacity": 0.7,
+                        "legend": true,
+                        "source": {
+                            "type": "TileWMS",
+                            "url": "https://preide.grafcan.es/ServicioWMS/mapserv?map=/home/datoslocal/mapas/LIFE/LIFE.map&",
+                            "params": {"LAYERS": "EXP_PATRINAT", "FORMAT": "image/png", "TILED": true},
+                            "serverType": "mapserver"
+                        }
+                    },
+                    {
+                        "type": "TileLayer",
+                        "queryable": true,
+                        "name": "exp_patricul",
+                        "title": "Patrimonio cultural",
+                        "visible": false,
+                        "opacity": 0.7,
+                        "legend": true,
+                        "source": {
+                            "type": "TileWMS",
+                            "url": "https://preide.grafcan.es/ServicioWMS/mapserv?map=/home/datoslocal/mapas/LIFE/LIFE.map&",
+                            "params": {"LAYERS": "EXP_PATRICUL", "FORMAT": "image/png", "TILED": true},
+                            "serverType": "mapserver"
+                        }
+                    }
+                ]
+            },
+            {
+                "type": "folder",
+                "name": "fldVulnerabilidad",
+                "title": "VULNERABILIDAD",
+                "nodes": [
+                    {
+                        "type": "TileLayer",
+                        "queryable": true,
+                        "name": "vulnerabilidad",
+                        "title": "Índice de vulnerabilidad",
+                        "visible": false,
+                        "opacity": 0.7,
+                        "legend": true,
+                        "source": {
+                            "type": "TileWMS",
+                            "url": "https://preide.grafcan.es/ServicioWMS/mapserv?map=/home/datoslocal/mapas/LIFE/LIFE.map&",
+                            "params": {"LAYERS": "VULNERABILIDAD", "FORMAT": "image/png", "TILED": true},
+                            "serverType": "mapserver"
+                        }
+                    }
+                ]
+            },
+            {
+                "type": "folder",
+                "name": "fldRiesgo",
+                "title": "RIESGO",
+                "nodes": [
+                    {
+                        "type": "group",
+                        "name": "grpRiesgo_actual",
+                        "nodes": [
+                            {
+                                "type": "folder",
+                                "name": "fldRiesgo_actual",
+                                "title": "Escenario actual",
+                                "nodes": [
+                                    {
+                                        "type": "TileLayer",
+                                        "queryable": true,
+                                        "name": "RIESGO_ACT_2A",
+                                        "title": "Riesgo histórico para un periodo de retorno de 2 años",
+                                        "visible": false,
+                                        "opacity": 0.7,
+                                        "legend": true,
+                                        "source": {
+                                            "type": "TileWMS",
+                                            "url": "https://preide.grafcan.es/ServicioWMS/mapserv?map=/home/datoslocal/mapas/LIFE/LIFE.map&",
+                                            "params": {"LAYERS": "RIESGO_ACT_2A", "FORMAT": "image/png", "TILED": true},
+                                            "serverType": "mapserver"
+                                        }
+                                    },
+                                    {
+                                        "type": "TileLayer",
+                                        "queryable": true,
+                                        "name": "RIESGO_ACT_100A",
+                                        "title": "Riesgo histórico para un periodo de retorno de 100 años",
+                                        "visible": false,
+                                        "opacity": 0.7,
+                                        "legend": true,
+                                        "source": {
+                                            "type": "TileWMS",
+                                            "url": "https://preide.grafcan.es/ServicioWMS/mapserv?map=/home/datoslocal/mapas/LIFE/LIFE.map&",
+                                            "params": {"LAYERS": "RIESGO_ACT_100A", "FORMAT": "image/png", "TILED": true},
+                                            "serverType": "mapserver"
+                                        }
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "type": "group",
+                        "name": "grpRiesgo_rcp4.5_mitad",
+                        "nodes": [
+                            {
+                                "type": "folder",
+                                "name": "fldRiesgo_rcp4.5_mitad",
+                                "title": "Escenario RCP4.5 a mitad de siglo",
+                                "nodes": [
+                                    {
+                                        "type": "TileLayer",
+                                        "queryable": true,
+                                        "name": "RIESGO_RCP45_MITADS_2A",
+                                        "title": "Riesgo escenario RCP4.5 2025-2045 para un periodo de retorno de 2 años",
+                                        "visible": false,
+                                        "opacity": 0.7,
+                                        "legend": true,
+                                        "source": {
+                                            "type": "TileWMS",
+                                            "url": "https://preide.grafcan.es/ServicioWMS/mapserv?map=/home/datoslocal/mapas/LIFE/LIFE.map&",
+                                            "params": {"LAYERS": "RIESGO_RCP45_MITADS_2A", "FORMAT": "image/png", "TILED": true},
+                                            "serverType": "mapserver"
+                                        }
+                                    },
+                                    {
+                                        "type": "TileLayer",
+                                        "queryable": true,
+                                        "name": "RIESGO_RCP45_MITADS_100A",
+                                        "title": "Riesgo escenario RCP4.5 2025-2045 para un periodo de retorno de 100 años",
+                                        "visible": false,
+                                        "opacity": 0.7,
+                                        "legend": true,
+                                        "source": {
+                                            "type": "TileWMS",
+                                            "url": "https://preide.grafcan.es/ServicioWMS/mapserv?map=/home/datoslocal/mapas/LIFE/LIFE.map&",
+                                            "params": {"LAYERS": "RIESGO_RCP45_MITADS_100A", "FORMAT": "image/png", "TILED": true},
+                                            "serverType": "mapserver"
+                                        }
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "type": "group",
+                        "name": "grpRiesgo_rcp4.5_final",
+                        "nodes": [
+                            {
+                                "type": "folder",
+                                "name": "fldRiesgo_rcp4.5_final",
+                                "title": "Escenario RCP4.5 a final de siglo",
+                                "nodes": [
+                                    {
+                                        "type": "TileLayer",
+                                        "queryable": true,
+                                        "name": "RIESGO_RCP45_FINALS_2A",
+                                        "title": "Riesgo escenario RCP4.5 2080-2100 para un periodo de retorno de 2 años",
+                                        "visible": false,
+                                        "opacity": 0.7,
+                                        "legend": true,
+                                        "source": {
+                                            "type": "TileWMS",
+                                            "url": "https://preide.grafcan.es/ServicioWMS/mapserv?map=/home/datoslocal/mapas/LIFE/LIFE.map&",
+                                            "params": {"LAYERS": "RIESGO_RCP45_FINALS_2A", "FORMAT": "image/png", "TILED": true},
+                                            "serverType": "mapserver"
+                                        }
+                                    },
+                                    {
+                                        "type": "TileLayer",
+                                        "queryable": true,
+                                        "name": "RIESGO_RCP45_FINALS_100A",
+                                        "title": "Riesgo escenario RCP4.5 2080-2100 para un periodo de retorno de 100 años",
+                                        "visible": false,
+                                        "opacity": 0.7,
+                                        "legend": true,
+                                        "source": {
+                                            "type": "TileWMS",
+                                            "url": "https://preide.grafcan.es/ServicioWMS/mapserv?map=/home/datoslocal/mapas/LIFE/LIFE.map&",
+                                            "params": {"LAYERS": "RIESGO_RCP45_FINALS_100A", "FORMAT": "image/png", "TILED": true},
+                                            "serverType": "mapserver"
+                                        }
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "type": "group",
+                        "name": "grpRiesgo_rcp4.5_final",
+                        "nodes": [
+                            {
+                                "type": "folder",
+                                "name": "fldRiesgo_rcp4.5_final",
+                                "title": "Escenario RCP8.5 a mitad de siglo",
+                                "nodes": [
+                                    {
+                                        "type": "TileLayer",
+                                        "queryable": true,
+                                        "name": "RIESGO_RCP85_MITADS_2A",
+                                        "title": "Riesgo escenario RCP8.5 2025-2045 para un periodo de retorno de 2 años",
+                                        "visible": false,
+                                        "opacity": 0.7,
+                                        "legend": true,
+                                        "source": {
+                                            "type": "TileWMS",
+                                            "url": "https://preide.grafcan.es/ServicioWMS/mapserv?map=/home/datoslocal/mapas/LIFE/LIFE.map&",
+                                            "params": {"LAYERS": "RIESGO_RCP85_MITADS_2A", "FORMAT": "image/png", "TILED": true},
+                                            "serverType": "mapserver"
+                                        }
+                                    },
+                                    {
+                                        "type": "TileLayer",
+                                        "queryable": true,
+                                        "name": "RIESGO_RCP85_MITADS_100A",
+                                        "title": "Riesgo escenario RCP8.5 2025-2045 para un periodo de retorno de 100 años",
+                                        "visible": false,
+                                        "opacity": 0.7,
+                                        "legend": true,
+                                        "source": {
+                                            "type": "TileWMS",
+                                            "url": "https://preide.grafcan.es/ServicioWMS/mapserv?map=/home/datoslocal/mapas/LIFE/LIFE.map&",
+                                            "params": {"LAYERS": "RIESGO_RCP85_MITADS_100A", "FORMAT": "image/png", "TILED": true},
+                                            "serverType": "mapserver"
+                                        }
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "type": "group",
+                        "name": "grpRiesgo_rcp8.5_final",
+                        "nodes": [
+                            {
+                                "type": "folder",
+                                "name": "fldRiesgo_rcp8.5_final",
+                                "title": "Escenario RCP8.5 a final de siglo",
+                                "nodes": [
+                                    {
+                                        "type": "TileLayer",
+                                        "queryable": true,
+                                        "name": "RIESGO_RCP85_FINALS_2A",
+                                        "title": "Riesgo escenario RCP8.5 2080-2100 para un periodo de retorno de 2 años",
+                                        "visible": false,
+                                        "opacity": 0.7,
+                                        "legend": true,
+                                        "source": {
+                                            "type": "TileWMS",
+                                            "url": "https://preide.grafcan.es/ServicioWMS/mapserv?map=/home/datoslocal/mapas/LIFE/LIFE.map&",
+                                            "params": {"LAYERS": "RIESGO_RCP85_FINALS_2A", "FORMAT": "image/png", "TILED": true},
+                                            "serverType": "mapserver"
+                                        }
+                                    },
+                                    {
+                                        "type": "TileLayer",
+                                        "queryable": true,
+                                        "name": "RIESGO_RCP85_FINALS_100A",
+                                        "title": "Riesgo escenario RCP8.5 2080-2100 para un periodo de retorno de 100 años",
+                                        "visible": false,
+                                        "opacity": 0.7,
+                                        "legend": true,
+                                        "source": {
+                                            "type": "TileWMS",
+                                            "url": "https://preide.grafcan.es/ServicioWMS/mapserv?map=/home/datoslocal/mapas/LIFE/LIFE.map&",
+                                            "params": {"LAYERS": "RIESGO_RCP85_FINALS_100A", "FORMAT": "image/png", "TILED": true},
+                                            "serverType": "mapserver"
+                                        }
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "type": "TileLayer",
+        "queryable": true,
+        "name": "mti",
+        "title": "Mapa Topográfico Integrado",
+        "visible": false,
+        "source": {
+            "type": "TileWMS",
+            "url": "https://idecan2.grafcan.es/ServicioWMS/MTI",
+            "params": {"LAYERS": "WMS_MTI", "FORMAT": "image/png", "TILED": true},
+            "serverType": "mapserver"
+        }
+    },
+    {
+        "type": "TileLayer",
+        "queryable": false,
+        "name": "mds",
+        "title": "Modelo de sombras",
+        "visible": false,
+        "opacity": 0.6,
+        "source": {
+            "type": "TileWMS",
+            "url": "https://idecan3.grafcan.es/ServicioWMS/MDSombras",
+            "params": {"LAYERS": "WMS_HS", "FORMAT": "image/jpeg", "TILED": true},
+            "serverType": "mapserver"
+        }
+    },
+    {
+        "type": "TileLayer",
+        "queryable": true,
+        "name": "ortoexpress",
+        "title": "OrtoExpress",
+        "visible": true,
+        "source": {
+            "type": "TileWMS",
+            "url": "https://idecan1.grafcan.es/ServicioWMS/OrtoExpress",
+            "params": {"LAYERS": "ortoexpress", "FORMAT": "image/jpeg", "TILED": true},
+            "serverType": "mapserver"
+        }
+    }
+  ]

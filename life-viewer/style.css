@@ -49,11 +49,13 @@ html, body * {
 }
 .user-layer-div {
   display: flex;
+  width: 100%;
 }
 .user-layer-label {
   text-align: left;
   width: 100%;
   background: none !important;
+  word-break: break-all;
 }
 .user-layer-trash {
   width: 24px;

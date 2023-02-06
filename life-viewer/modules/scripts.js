@@ -247,7 +247,11 @@ function addContent(data, target) {
                             minWidth: 500,
                             maxWidth: 800,
                             minHeight: 300,
-                            maxHeight: 600
+                            maxHeight: 600,
+                            close: () => {
+                                // remove tabs
+                                $('#legend').html('<div id="legend-tabs"><ul></ul></div>')
+                            }
                         })
                         addLegendTab(ele.name, ele.title, url)
                     })
