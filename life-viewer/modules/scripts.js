@@ -91,7 +91,7 @@ function smallScreen() {
 }
 
 function addInfoTab(name, title, url, height=300) {
-    // Resolves to true when url returns not empty info
+    // Resolves to true when url returns non empty info
     return new Promise((resolve) => {
         $.get({
             url: url,
