@@ -120,7 +120,7 @@ function removeAllInfoTabs() {
 
 function mapSingleclick(evt) {
     let urls = []
-    map.getLayers().forEach((layer, index, arr) => {
+    map.getLayers().forEach((layer) => {
         if (layer.get('queryable') && layer.getVisible()) {
             const url = layer.getSource().getFeatureInfoUrl(
                 evt.coordinate,
