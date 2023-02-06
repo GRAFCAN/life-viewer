@@ -114,7 +114,8 @@ function mapSingleclick(evt) {
                 {'INFO_FORMAT': 'text/html'}
             )
             if (url) {
-                urls.push({
+                // reverse order
+                urls.unshift({
                     name: layer.get('name'),
                     title: layer.get('title'),
                     url: url
