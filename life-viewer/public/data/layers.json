@@ -634,7 +634,7 @@
         "type": "TileLayer",
         "queryable": true,
         "name": "ortoexpress",
-        "title": "OrtoExpress",
+        "title": "Ortofoto territorial",
         "visible": true,
         "source": {
             "type": "TileWMS",
