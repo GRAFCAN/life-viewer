@@ -99,6 +99,10 @@ function addInfoTab(name, title, url, height=300) {
     tabs.tabs('refresh')
 }
 
+function removeAllInfoTabs() {
+    $('#info').html('<div id="info-tabs"><ul></ul></div>')
+}
+
 function mapSingleclick(evt) {
     let urls = []
     map.getLayers().forEach((layer, index, arr) => {
@@ -120,7 +124,7 @@ function mapSingleclick(evt) {
     })
     if (urls.length) {
         // remove tabs
-        $('#info').html('<div id="info-tabs"><ul></ul></div>')
+        removeAllInfoTabs()
         $('#info').dialog({
             title: 'Información',
             position: {my: 'left top', at: 'left top'},
@@ -216,6 +220,10 @@ function addLegendTab(name, title, url) {
     $('#legend-tabs >ul >li').last().find('a').click()
 }
 
+function removeAllLegendTabs() {
+    $('#legend').html('<div id="legend-tabs"><ul></ul></div>')
+}
+
 function addContent(data, target) {
     data.forEach(ele => {
         if (ele.type.match(/layer/i)) {
@@ -250,7 +258,7 @@ function addContent(data, target) {
                             maxHeight: 600,
                             close: () => {
                                 // remove tabs
-                                $('#legend').html('<div id="legend-tabs"><ul></ul></div>')
+                                removeAllLegendTabs()
                             }
                         })
                         addLegendTab(ele.name, ele.title, url)
