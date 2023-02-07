@@ -30,6 +30,7 @@ html, body * {
   top: 0;
   width: 50%;
   height: 100%;
+  border-left: white solid 1px;
 }
 #feature-info {
   position: absolute;
