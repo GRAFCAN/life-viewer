@@ -26,6 +26,8 @@ export let map;
 let map_handler = [];
 let mousePositionControl;
 
+let pointerPosition = [0,  0]
+
 let view = new View({
     projection: getProjection('EPSG:32628'),
     center: import.meta.env.VITE_CENTER.split(',').map(ele => parseFloat(ele)),
@@ -188,10 +190,26 @@ function showFeatureInfo(evt) {
     }
 }
 
-function mapPointerMove(evt) {
-    if (evt.map != mousePositionControl.getMap()) {
-        mousePositionControl.setMap(evt.map);
+function isPointerStopped (e) {
+    pointerPosition = e.coordinate
+    setTimeout(() => {
+      if (
+        e.coordinate[0] == pointerPosition[0]
+        && e.coordinate[1] == pointerPosition[1]
+      ) {
+        getAltitude(e.coordinate)
+        .then(altitude => {
+            $('#altitude').text(altitude)
+        })
+      }
+    }, 500)
+}
+
+function mapPointerMove(e) {
+    if (e.map != mousePositionControl.getMap()) {
+        mousePositionControl.setMap(e.map);
     }
+    isPointerStopped(e)
 }
 
 function viewChange(evt) {
@@ -313,9 +331,11 @@ function initControls(data) {
     mousePositionControl = new MousePosition({
         target: 'coordinate-utm',
         coordinateFormat: function(coordinate) {
-            return 'x: ' + coordinate[0].toLocaleString() + ' y: ' + coordinate[1].toLocaleString();
+            return 'x: ' + coordinate[0].toLocaleString()
+                + ' y: ' + coordinate[1].toLocaleString()
+                + ' z: <span id="altitude">0</span>'
         }
-    });
+    })
 
     // scale
     map.addControl(new ScaleLine({
@@ -568,3 +588,52 @@ function toolLoadFeatures() {
         });
     });
 }
+
+function format(value, precision) {
+    return new Intl.NumberFormat(
+      undefined,
+      { maximumFractionDigits: precision || 0 }
+    ).format(value)
+}
+  
+function checkZ(coordinates, precision) {
+    return new Promise((resolve, reject) => {
+        let url = "http://visor.grafcan.es/mdt/getztif/[x]/[y]/32628/A/";
+        url = url.replace("[x]", parseInt(coordinates[0]));
+        url = url.replace("[y]", parseInt(coordinates[1]));
+        fetch(url)
+            .catch((error) => {
+                reject(error)
+            })
+            .then((response) => response.text())
+            .then((response) => new window.DOMParser().parseFromString(response, "text/xml"))
+            .then((data) => {
+                let z = data.getElementsByTagName("z");
+                let altitud;
+                if (z.length > 0) {
+                    if (parseFloat(z[0].textContent) > -5 /*-32768*/) {
+                        altitud = format(z[0].textContent, precision) + " m.";
+                    } else {
+                        altitud = "sin datos";
+                    }
+                }
+                resolve({
+                    valueString: altitud,
+                    value: z[0].textContent
+                })
+            });
+        })
+}
+
+export function getAltitude (coordinate) {
+    return new Promise((resolve, reject) => {
+        checkZ(coordinate, 2)
+        .then((response) => {
+            resolve(response.valueString)
+        })
+        .catch((error) => {
+            reject(error)
+        })
+    })
+}
+
