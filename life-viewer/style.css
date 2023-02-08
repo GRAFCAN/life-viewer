@@ -128,9 +128,9 @@ html, body * {
   left: 125px;
 }
 .ol-tooltip {
-  color: rgba(255, 255, 255, 0.9);
+  color: #fff;
   font-weight: bold;
-  text-shadow: 0px 0px 8px #000;
+  text-shadow: -1px -1px 2px #000, 1px -1px 2px #000, -1px 1px 2px #000, 1px 1px 2px #000;
 }
 .ol-rotate {
   right: auto;
