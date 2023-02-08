@@ -598,7 +598,7 @@ function format(value, precision) {
   
 function checkZ(coordinates, precision) {
     return new Promise((resolve, reject) => {
-        let url = "http://visor.grafcan.es/mdt/getztif/[x]/[y]/32628/A/";
+        let url = "/mdt/getztif/[x]/[y]/32628/A/";
         url = url.replace("[x]", parseInt(coordinates[0]));
         url = url.replace("[y]", parseInt(coordinates[1]));
         fetch(url)
