@@ -25,16 +25,15 @@ const vector = new VectorLayer({
   style: [
     {
       'stroke-color': 'rgba(0, 0, 0, 0.6)',
-      // 'stroke-color': 'rgba(25, 103, 119, 1)',
       'stroke-width': 3
     },
     {
-      'fill-color': 'rgba(255, 255, 255, 0.2)',
-      'stroke-color': 'rgb(255, 204, 51)',
+      'fill-color': 'rgba(255, 0, 0, 1)',
+      'stroke-color': '#ff0000',
       'stroke-width': 1,
       'circle-radius': 5,
-      'circle-stroke-color': 'rgba(255, 204, 51, 1)',
-      'circle-fill-color': 'rgba(255, 204, 51, 0.6)',
+      'circle-stroke-color': 'rgba(0, 0, 0, 1)',
+      'circle-fill-color': 'rgba(255, 0, 0, 0.6)',
     }
   ]
 });
@@ -119,39 +118,18 @@ function addInteraction(type) {
   draw = new Draw({
     source: source,
     type: type,
-    // style: new Style({
-    //   fill: new Fill({
-    //       color: 'rgba(255, 255, 255, 0.2)',
-    //   }),
-    //   stroke: new Stroke({
-    //       color: 'rgba(255, 255, 255, 0.8)',
-    //       lineDash: [10, 10],
-    //       width: 2,
-    //   }),
-    //   image: new CircleStyle({
-    //       radius: 5,
-    //       stroke: new Stroke({
-    //         color: 'rgba(255, 255, 255, 0.9)',
-    //       }),
-    //       fill: new Fill({
-    //         color: 'rgba(255, 255, 255, 0.2)',
-    //       }),
-    //   }),
-    // })
     style: [
       {
         'stroke-color': 'rgba(0, 0, 0, 0.6)',
-        // 'stroke-color': 'rgba(25, 103, 119, 1)',
         'stroke-width': 3
       },
       {
-        'fill-color': 'rgba(255, 255, 255, 0.2)',
-        'stroke-color': '#ffcc33',
+        'fill-color': 'rgba(255, 0, 0, 1)',
+        'stroke-color': '#ff0000',
         'stroke-width': 1,
-        'stroke-line-dash': [10, 10],
         'circle-radius': 5,
-        'circle-stroke-color': 'rgba(255, 204, 51, 1)',
-        'circle-fill-color': 'rgba(255, 204, 51, 0.6)',
+        'circle-stroke-color': 'rgba(0, 0, 0, 1)',
+        'circle-fill-color': 'rgba(255, 0, 0, 0.6)',
       }
     ]
   });
