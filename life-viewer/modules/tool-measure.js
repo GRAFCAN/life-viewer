@@ -28,7 +28,7 @@ const vector = new VectorLayer({
       'stroke-width': 3
     },
     {
-      'fill-color': 'rgba(255, 0, 0, 1)',
+      'fill-color': 'rgba(255, 0, 0, 0.6)',
       'stroke-color': '#ff0000',
       'stroke-width': 1,
       'circle-radius': 5,
@@ -124,7 +124,7 @@ function addInteraction(type) {
         'stroke-width': 3
       },
       {
-        'fill-color': 'rgba(255, 0, 0, 1)',
+        'fill-color': 'rgba(255, 0, 0, 0.6)',
         'stroke-color': '#ff0000',
         'stroke-width': 1,
         'circle-radius': 5,
