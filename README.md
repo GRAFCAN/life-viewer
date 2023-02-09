@@ -2,7 +2,7 @@
 
 # Carpeta `life-viewer`
 
-Proyecto NodeJS para el visor [LIFE Garachico](https://lifegarachico.eu/).
+Proyecto desarrollado en JavaScript del visor [LIFE Garachico](https://lifegarachico.eu/).
 
 # Archivo de contenidos
 
