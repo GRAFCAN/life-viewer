@@ -24,6 +24,7 @@
                                         "title": "Peligrosidad histórica para un periodo de retorno de 2 años",
                                         "visible": false,
                                         "opacity": 0.7,
+                                        "legend": "/img/legend/peligrosidad.png",
                                         "source": {
                                             "type": "TileWMS",
                                             "url": "https://preide.grafcan.es/ServicioWMS/mapserv?map=/home/datoslocal/mapas/LIFE/LIFE.map&",
@@ -38,6 +39,7 @@
                                         "title": "Peligrosidad histórica para un periodo de retorno de 100 años",
                                         "visible": false,
                                         "opacity": 0.7,
+                                        "legend": "/img/legend/peligrosidad.png",
                                         "source": {
                                             "type": "TileWMS",
                                             "url": "https://preide.grafcan.es/ServicioWMS/mapserv?map=/home/datoslocal/mapas/LIFE/LIFE.map&",
@@ -65,6 +67,7 @@
                                         "title": "Peligrosidad escenario RCP4.5 2025-2045 para un periodo de retorno de 2 años",
                                         "visible": false,
                                         "opacity": 0.7,
+                                        "legend": "/img/legend/peligrosidad.png",
                                         "source": {
                                             "type": "TileWMS",
                                             "url": "https://preide.grafcan.es/ServicioWMS/mapserv?map=/home/datoslocal/mapas/LIFE/LIFE.map&",
@@ -79,6 +82,7 @@
                                         "title": "Peligrosidad escenario RCP4.5 2025-2045 para un periodo de retorno de 100 años",
                                         "visible": false,
                                         "opacity": 0.7,
+                                        "legend": "/img/legend/peligrosidad.png",
                                         "source": {
                                             "type": "TileWMS",
                                             "url": "https://preide.grafcan.es/ServicioWMS/mapserv?map=/home/datoslocal/mapas/LIFE/LIFE.map&",
@@ -106,6 +110,7 @@
                                         "title": "Peligrosidad escenario RCP4.5 2080-2100 para un periodo de retorno de 2 años",
                                         "visible": false,
                                         "opacity": 0.7,
+                                        "legend": "/img/legend/peligrosidad.png",
                                         "source": {
                                             "type": "TileWMS",
                                             "url": "https://preide.grafcan.es/ServicioWMS/mapserv?map=/home/datoslocal/mapas/LIFE/LIFE.map&",
@@ -120,6 +125,7 @@
                                         "title": "Peligrosidad escenario RCP4.5 2080-2100 para un periodo de retorno de 100 años",
                                         "visible": false,
                                         "opacity": 0.7,
+                                        "legend": "/img/legend/peligrosidad.png",
                                         "source": {
                                             "type": "TileWMS",
                                             "url": "https://preide.grafcan.es/ServicioWMS/mapserv?map=/home/datoslocal/mapas/LIFE/LIFE.map&",
@@ -147,6 +153,7 @@
                                         "title": "Peligrosidad escenario RCP8.5 2025-2045 para un periodo de retorno de 2 años",
                                         "visible": false,
                                         "opacity": 0.7,
+                                        "legend": "/img/legend/peligrosidad.png",
                                         "source": {
                                             "type": "TileWMS",
                                             "url": "https://preide.grafcan.es/ServicioWMS/mapserv?map=/home/datoslocal/mapas/LIFE/LIFE.map&",
@@ -161,6 +168,7 @@
                                         "title": "Peligrosidad escenario RCP8.5 2025-2045 para un periodo de retorno de 100 años",
                                         "visible": false,
                                         "opacity": 0.7,
+                                        "legend": "/img/legend/peligrosidad.png",
                                         "source": {
                                             "type": "TileWMS",
                                             "url": "https://preide.grafcan.es/ServicioWMS/mapserv?map=/home/datoslocal/mapas/LIFE/LIFE.map&",
@@ -188,6 +196,7 @@
                                         "title": "Peligrosidad escenario RCP8.5 2080-2100 para un periodo de retorno de 2 años",
                                         "visible": false,
                                         "opacity": 0.7,
+                                        "legend": "/img/legend/peligrosidad.png",
                                         "source": {
                                             "type": "TileWMS",
                                             "url": "https://preide.grafcan.es/ServicioWMS/mapserv?map=/home/datoslocal/mapas/LIFE/LIFE.map&",
@@ -202,6 +211,7 @@
                                         "title": "Peligrosidad escenario RCP8.5 2080-2100 para un periodo de retorno de 100 años",
                                         "visible": false,
                                         "opacity": 0.7,
+                                        "legend": "/img/legend/peligrosidad.png",
                                         "source": {
                                             "type": "TileWMS",
                                             "url": "https://preide.grafcan.es/ServicioWMS/mapserv?map=/home/datoslocal/mapas/LIFE/LIFE.map&",
