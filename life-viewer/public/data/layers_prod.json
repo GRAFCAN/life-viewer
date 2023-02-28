@@ -395,6 +395,21 @@
                 "title": "RIESGO",
                 "nodes": [
                     {
+                        "type": "ImageLayer",
+                        "queryable": true,
+                        "name": "RIESGO_PERCIBIDO",
+                        "title": "Riesgo percibido",
+                        "visible": false,
+                        "opacity": 0.7,
+                        "legend": true,
+                        "source": {
+                            "type": "TileWMS",
+                            "url": "https://idecan2.grafcan.es/ServicioWMS/LIFEGarachico?",
+                            "params": {"LAYERS": "RIESGO_PERCIBIDO", "FORMAT": "image/png", "TILED": false},
+                            "serverType": "mapserver"
+                        }
+                    },
+                    {
                         "type": "group",
                         "name": "grpRiesgo_actual",
                         "nodes": [
