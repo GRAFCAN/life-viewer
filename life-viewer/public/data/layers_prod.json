@@ -410,6 +410,7 @@
                         }
                     },
                     {
+                        "hidden": true,
                         "type": "group",
                         "name": "grpRiesgo_actual",
                         "nodes": [
@@ -453,6 +454,7 @@
                         ]
                     },
                     {
+                        "hidden": true,
                         "type": "group",
                         "name": "grpRiesgo_rcp4.5_mitad",
                         "nodes": [
@@ -496,6 +498,7 @@
                         ]
                     },
                     {
+                        "hidden": true,
                         "type": "group",
                         "name": "grpRiesgo_rcp4.5_final",
                         "nodes": [
@@ -539,6 +542,7 @@
                         ]
                     },
                     {
+                        "hidden": true,
                         "type": "group",
                         "name": "grpRiesgo_rcp4.5_final",
                         "nodes": [
@@ -582,6 +586,7 @@
                         ]
                     },
                     {
+                        "hidden": true,
                         "type": "group",
                         "name": "grpRiesgo_rcp8.5_final",
                         "nodes": [

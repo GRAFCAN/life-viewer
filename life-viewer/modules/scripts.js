@@ -68,7 +68,9 @@ function recLayers(data) {
                 visible: item.visible
             }))
         } else if (item.type.match(/group|folder/) && item.nodes) {
-            layers = recLayers(item.nodes).concat(layers)
+            if (!(item.hidden || false)) {
+                layers = recLayers(item.nodes).concat(layers)
+            }
         }
     })
     return layers
@@ -311,12 +313,12 @@ function addContent(data, target) {
                         addLegendTab(ele.name, ele.title, url)
                     })
             }
-        } else if (ele.type == 'group') {
+        } else if (ele.type == 'group' && !(ele.hidden || false)) {
             let container = $(`<div id="${ele.name}" class="accordion-group"></div>`).appendTo(target)
             if (ele.nodes) {
                 addContent(ele.nodes, container)
             }
-        } else if (ele.type == 'folder') {
+        } else if (ele.type == 'folder' && !(ele.hidden || false)) {
             $(target).append(`<h3>${ele.title}</h3>`)
             let container = $(`<div id="${ele.name}"></div>`).appendTo(target)
             if (ele.nodes) {
