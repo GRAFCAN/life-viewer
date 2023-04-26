@@ -23,7 +23,7 @@
                                         "name": "PEL_ACT_2A",
                                         "title": "Peligrosidad histórica para un periodo de retorno de 2 años",
                                         "visible": false,
-                                        "opacity": 0.7,
+                                        "opacity": 0.8,
                                         "legend": "/img/legend/peligrosidad.png",
                                         "source": {
                                             "type": "TileWMS",
@@ -38,7 +38,7 @@
                                         "name": "PEL_ACT_100A",
                                         "title": "Peligrosidad histórica para un periodo de retorno de 100 años",
                                         "visible": false,
-                                        "opacity": 0.7,
+                                        "opacity": 0.8,
                                         "legend": "/img/legend/peligrosidad.png",
                                         "source": {
                                             "type": "TileWMS",
@@ -66,7 +66,7 @@
                                         "name": "PEL_RCP45_MITADS_2A",
                                         "title": "Peligrosidad escenario RCP4.5 2025-2045 para un periodo de retorno de 2 años",
                                         "visible": false,
-                                        "opacity": 0.7,
+                                        "opacity": 0.8,
                                         "legend": "/img/legend/peligrosidad.png",
                                         "source": {
                                             "type": "TileWMS",
@@ -81,7 +81,7 @@
                                         "name": "PEL_RCP45_MITADS_100A",
                                         "title": "Peligrosidad escenario RCP4.5 2025-2045 para un periodo de retorno de 100 años",
                                         "visible": false,
-                                        "opacity": 0.7,
+                                        "opacity": 0.8,
                                         "legend": "/img/legend/peligrosidad.png",
                                         "source": {
                                             "type": "TileWMS",
@@ -109,7 +109,7 @@
                                         "name": "PEL_RCP45_FINALS_2A",
                                         "title": "Peligrosidad escenario RCP4.5 2080-2100 para un periodo de retorno de 2 años",
                                         "visible": false,
-                                        "opacity": 0.7,
+                                        "opacity": 0.8,
                                         "legend": "/img/legend/peligrosidad.png",
                                         "source": {
                                             "type": "TileWMS",
@@ -124,7 +124,7 @@
                                         "name": "PEL_RCP45_FINALS_100A",
                                         "title": "Peligrosidad escenario RCP4.5 2080-2100 para un periodo de retorno de 100 años",
                                         "visible": false,
-                                        "opacity": 0.7,
+                                        "opacity": 0.8,
                                         "legend": "/img/legend/peligrosidad.png",
                                         "source": {
                                             "type": "TileWMS",
@@ -152,7 +152,7 @@
                                         "name": "PEL_RCP85_MITADS_2A",
                                         "title": "Peligrosidad escenario RCP8.5 2025-2045 para un periodo de retorno de 2 años",
                                         "visible": false,
-                                        "opacity": 0.7,
+                                        "opacity": 0.8,
                                         "legend": "/img/legend/peligrosidad.png",
                                         "source": {
                                             "type": "TileWMS",
@@ -167,7 +167,7 @@
                                         "name": "PEL_RCP85_MITADS_100A",
                                         "title": "Peligrosidad escenario RCP8.5 2025-2045 para un periodo de retorno de 100 años",
                                         "visible": false,
-                                        "opacity": 0.7,
+                                        "opacity": 0.8,
                                         "legend": "/img/legend/peligrosidad.png",
                                         "source": {
                                             "type": "TileWMS",
@@ -195,7 +195,7 @@
                                         "name": "PEL_RCP85_FINALS_2A",
                                         "title": "Peligrosidad escenario RCP8.5 2080-2100 para un periodo de retorno de 2 años",
                                         "visible": false,
-                                        "opacity": 0.7,
+                                        "opacity": 0.8,
                                         "legend": "/img/legend/peligrosidad.png",
                                         "source": {
                                             "type": "TileWMS",
@@ -210,7 +210,7 @@
                                         "name": "PEL_RCP85_FINALS_100A",
                                         "title": "Peligrosidad escenario RCP8.5 2080-2100 para un periodo de retorno de 100 años",
                                         "visible": false,
-                                        "opacity": 0.7,
+                                        "opacity": 0.8,
                                         "legend": "/img/legend/peligrosidad.png",
                                         "source": {
                                             "type": "TileWMS",
@@ -236,7 +236,7 @@
                         "name": "exp_pob_total",
                         "title": "Población total",
                         "visible": false,
-                        "opacity": 0.7,
+                        "opacity": 0.8,
                         "legend": true,
                         "source": {
                             "type": "TileWMS",
@@ -251,7 +251,7 @@
                         "name": "exp_pob_dpte",
                         "title": "Población dependiente",
                         "visible": false,
-                        "opacity": 0.7,
+                        "opacity": 0.8,
                         "legend": true,
                         "source": {
                             "type": "TileWMS",
@@ -266,7 +266,7 @@
                         "name": "exp_usos_suelo",
                         "title": "Usos de suelo",
                         "visible": false,
-                        "opacity": 0.7,
+                        "opacity": 0.8,
                         "legend": true,
                         "source": {
                             "type": "TileWMS",
@@ -281,7 +281,7 @@
                         "name": "exp_edif_ant",
                         "title": "Edificaciones - Antigüedad",
                         "visible": false,
-                        "opacity": 0.7,
+                        "opacity": 0.8,
                         "legend": true,
                         "source": {
                             "type": "TileWMS",
@@ -296,7 +296,7 @@
                         "name": "exp_edif_cal",
                         "title": "Edificaciones - Calidad",
                         "visible": false,
-                        "opacity": 0.7,
+                        "opacity": 0.8,
                         "legend": true,
                         "source": {
                             "type": "TileWMS",
@@ -311,7 +311,7 @@
                         "name": "exp_edif_plantas",
                         "title": "Edificaciones - Plantas de sótanos",
                         "visible": false,
-                        "opacity": 0.7,
+                        "opacity": 0.8,
                         "legend": true,
                         "source": {
                             "type": "TileWMS",
@@ -326,7 +326,7 @@
                         "name": "exp_mobiliario",
                         "title": "Mobiliario",
                         "visible": false,
-                        "opacity": 0.7,
+                        "opacity": 0.8,
                         "legend": true,
                         "source": {
                             "type": "TileWMS",
@@ -341,7 +341,7 @@
                         "name": "exp_patrinat",
                         "title": "Patrimonio natural",
                         "visible": false,
-                        "opacity": 0.7,
+                        "opacity": 0.8,
                         "legend": true,
                         "source": {
                             "type": "TileWMS",
@@ -356,7 +356,7 @@
                         "name": "exp_patricul",
                         "title": "Patrimonio cultural",
                         "visible": false,
-                        "opacity": 0.7,
+                        "opacity": 0.8,
                         "legend": true,
                         "source": {
                             "type": "TileWMS",
@@ -378,7 +378,7 @@
                         "name": "vulnerabilidad",
                         "title": "Índice de vulnerabilidad",
                         "visible": false,
-                        "opacity": 0.7,
+                        "opacity": 0.8,
                         "legend": true,
                         "source": {
                             "type": "TileWMS",
@@ -400,7 +400,7 @@
                         "name": "RIESGO_PERCIBIDO",
                         "title": "Riesgo percibido",
                         "visible": false,
-                        "opacity": 0.7,
+                        "opacity": 0.8,
                         "legend": true,
                         "source": {
                             "type": "TileWMS",
@@ -410,7 +410,6 @@
                         }
                     },
                     {
-                        "hidden": true,
                         "type": "group",
                         "name": "grpRiesgo_actual",
                         "nodes": [
@@ -425,7 +424,7 @@
                                         "name": "RIESGO_ACT_2A",
                                         "title": "Riesgo histórico para un periodo de retorno de 2 años",
                                         "visible": false,
-                                        "opacity": 0.7,
+                                        "opacity": 0.8,
                                         "legend": true,
                                         "source": {
                                             "type": "TileWMS",
@@ -440,7 +439,7 @@
                                         "name": "RIESGO_ACT_100A",
                                         "title": "Riesgo histórico para un periodo de retorno de 100 años",
                                         "visible": false,
-                                        "opacity": 0.7,
+                                        "opacity": 0.8,
                                         "legend": true,
                                         "source": {
                                             "type": "TileWMS",
@@ -454,7 +453,6 @@
                         ]
                     },
                     {
-                        "hidden": true,
                         "type": "group",
                         "name": "grpRiesgo_rcp4.5_mitad",
                         "nodes": [
@@ -469,7 +467,7 @@
                                         "name": "RIESGO_RCP45_MITADS_2A",
                                         "title": "Riesgo escenario RCP4.5 2025-2045 para un periodo de retorno de 2 años",
                                         "visible": false,
-                                        "opacity": 0.7,
+                                        "opacity": 0.8,
                                         "legend": true,
                                         "source": {
                                             "type": "TileWMS",
@@ -484,7 +482,7 @@
                                         "name": "RIESGO_RCP45_MITADS_100A",
                                         "title": "Riesgo escenario RCP4.5 2025-2045 para un periodo de retorno de 100 años",
                                         "visible": false,
-                                        "opacity": 0.7,
+                                        "opacity": 0.8,
                                         "legend": true,
                                         "source": {
                                             "type": "TileWMS",
@@ -498,7 +496,6 @@
                         ]
                     },
                     {
-                        "hidden": true,
                         "type": "group",
                         "name": "grpRiesgo_rcp4.5_final",
                         "nodes": [
@@ -513,7 +510,7 @@
                                         "name": "RIESGO_RCP45_FINALS_2A",
                                         "title": "Riesgo escenario RCP4.5 2080-2100 para un periodo de retorno de 2 años",
                                         "visible": false,
-                                        "opacity": 0.7,
+                                        "opacity": 0.8,
                                         "legend": true,
                                         "source": {
                                             "type": "TileWMS",
@@ -528,7 +525,7 @@
                                         "name": "RIESGO_RCP45_FINALS_100A",
                                         "title": "Riesgo escenario RCP4.5 2080-2100 para un periodo de retorno de 100 años",
                                         "visible": false,
-                                        "opacity": 0.7,
+                                        "opacity": 0.8,
                                         "legend": true,
                                         "source": {
                                             "type": "TileWMS",
@@ -542,7 +539,6 @@
                         ]
                     },
                     {
-                        "hidden": true,
                         "type": "group",
                         "name": "grpRiesgo_rcp4.5_final",
                         "nodes": [
@@ -557,7 +553,7 @@
                                         "name": "RIESGO_RCP85_MITADS_2A",
                                         "title": "Riesgo escenario RCP8.5 2025-2045 para un periodo de retorno de 2 años",
                                         "visible": false,
-                                        "opacity": 0.7,
+                                        "opacity": 0.8,
                                         "legend": true,
                                         "source": {
                                             "type": "TileWMS",
@@ -572,7 +568,7 @@
                                         "name": "RIESGO_RCP85_MITADS_100A",
                                         "title": "Riesgo escenario RCP8.5 2025-2045 para un periodo de retorno de 100 años",
                                         "visible": false,
-                                        "opacity": 0.7,
+                                        "opacity": 0.8,
                                         "legend": true,
                                         "source": {
                                             "type": "TileWMS",
@@ -586,7 +582,6 @@
                         ]
                     },
                     {
-                        "hidden": true,
                         "type": "group",
                         "name": "grpRiesgo_rcp8.5_final",
                         "nodes": [
@@ -601,7 +596,7 @@
                                         "name": "RIESGO_RCP85_FINALS_2A",
                                         "title": "Riesgo escenario RCP8.5 2080-2100 para un periodo de retorno de 2 años",
                                         "visible": false,
-                                        "opacity": 0.7,
+                                        "opacity": 0.8,
                                         "legend": true,
                                         "source": {
                                             "type": "TileWMS",
@@ -616,7 +611,7 @@
                                         "name": "RIESGO_RCP85_FINALS_100A",
                                         "title": "Riesgo escenario RCP8.5 2080-2100 para un periodo de retorno de 100 años",
                                         "visible": false,
-                                        "opacity": 0.7,
+                                        "opacity": 0.8,
                                         "legend": true,
                                         "source": {
                                             "type": "TileWMS",
@@ -657,6 +652,33 @@
             "type": "TileWMS",
             "url": "https://idecan3.grafcan.es/ServicioWMS/MDSombras",
             "params": {"LAYERS": "WMS_HS", "FORMAT": "image/jpeg", "TILED": true},
+            "serverType": "mapserver"
+        }
+    },
+    {
+        "type": "TileLayer",
+        "queryable": false,
+        "name": "batimetria_p",
+        "title": "Batimetría (profundidad)",
+        "visible": false,
+        "legend": "/img/legend/batimetria_p_m.png",
+        "source": {
+            "type": "TileWMS",
+            "url": "https://preide.grafcan.es/ServicioWMS/mapserv?map=/home/datoslocal/mapas/LIFE/LIFE.map&",
+            "params": {"LAYERS": "BATIMETRIA_P", "FORMAT": "image/png", "TILED": true},
+            "serverType": "mapserver"
+        }
+    },
+    {
+        "type": "TileLayer",
+        "queryable": false,
+        "name": "batimetria_s",
+        "title": "Batimetría (sombras)",
+        "visible": false,
+        "source": {
+            "type": "TileWMS",
+            "url": "https://preide.grafcan.es/ServicioWMS/mapserv?map=/home/datoslocal/mapas/LIFE/LIFE.map&",
+            "params": {"LAYERS": "BATIMETRIA_S", "FORMAT": "image/png", "TILED": true},
             "serverType": "mapserver"
         }
     },
