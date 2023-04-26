@@ -5,7 +5,7 @@ import View from 'ol/View';
 import TileLayer from 'ol/layer/Tile';
 import TileWMS from 'ol/source/TileWMS';
 import ImageLayer from 'ol/layer/Image';
-import ImageWMS from 'ol/source/ImageWMS'
+import ImageWMS from 'ol/source/ImageWMS';
 import {get as getProjection} from 'ol/proj';
 import MousePosition from 'ol/control/MousePosition';
 import ScaleLine from 'ol/control/ScaleLine';
@@ -611,8 +611,10 @@ function checkZ(coordinates, precision) {
             .then((response) => new window.DOMParser().parseFromString(response, "text/xml"))
             .then((data) => {
                 let z = data.getElementsByTagName("z");
-                let altitud;
+                let altitud,
+                    original_value;
                 if (z.length > 0) {
+                    original_value = z[0].textContent;
                     if (parseFloat(z[0].textContent) > -5 /*-32768*/) {
                         altitud = format(z[0].textContent, precision) + " m.";
                     } else {
@@ -621,7 +623,7 @@ function checkZ(coordinates, precision) {
                 }
                 resolve({
                     valueString: altitud,
-                    value: z[0].textContent
+                    value: original_value
                 })
             });
         })
