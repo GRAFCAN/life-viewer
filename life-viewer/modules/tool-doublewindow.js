@@ -1,7 +1,9 @@
 import Map from 'ol/Map';
 import View from 'ol/View';
 import TileLayer from 'ol/layer/Tile';
+import ImageLayer from 'ol/layer/Image';
 import TileWMS from 'ol/source/TileWMS';
+import ImageWMS from 'ol/source/ImageWMS'
 import {unByKey} from 'ol/Observable';
 
 let active;
@@ -29,8 +31,22 @@ function cloneMap(type) {
                 queryable: layer.get('queryable'),
                 name: layer.get('name'),
                 title: layer.get('title'),
+                opacity: layer.get('opacity'),
                 source: new TileWMS({
                     url: layer.getSource().getUrls()[0],
+                    params: layer.getSource().getParams(),
+                    // serverType: layer.getSource().serverType_
+                }),
+                visible: layer.getVisible()
+            }));
+        } else if (layer instanceof ImageLayer) {
+            layers.push(new ImageLayer({
+                queryable: layer.get('queryable'),
+                name: layer.get('name'),
+                title: layer.get('title'),
+                opacity: layer.get('opacity'),
+                source: new ImageWMS({
+                    url: layer.getSource().getUrl ? layer.getSource().getUrl() : layer.getSource().getUrls()[0],
                     params: layer.getSource().getParams(),
                     // serverType: layer.getSource().serverType_
                 }),
