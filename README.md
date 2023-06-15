@@ -4,6 +4,8 @@
 
 Proyecto desarrollado en JavaScript del visor [LIFE Garachico](https://lifegarachico.eu/).
 
+Iconografía: https://pictogrammers.com/library/mdi/
+
 # Archivo de contenidos
 
 La ruta del archivo de contenidos se encuentra en la variable de entorno `VITE_CONTENT_FILE`, definida con el valor apropiado dentro del archivo de entorno asociado a cada modo.
