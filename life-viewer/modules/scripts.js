@@ -359,6 +359,12 @@ function initControls(data) {
         openTools();
     });
 
+    // tutorial btn
+    $('#tutorial-btn').button({icon: 'btn-tutorial-class'});
+    $('#tutorial-btn').on('click', () => {
+        openTutorial();
+    });
+
     // groups
     $('.accordion-group').accordion({
         active: false,
@@ -403,6 +409,11 @@ function openTools() {
             }
         });
     }
+}
+
+function openTutorial() {
+    const url = import.meta.env.VITE_VIEWER_TUTORIAL_URL
+    window.open(url, 'tutorial-target')
 }
 
 function executeTool(tool_id) {
