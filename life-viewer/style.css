@@ -96,7 +96,7 @@ html, body * {
 #tool-load-features-dialog {
   display: none;
 }
-.btn-layers-class, .btn-tools-class {
+.btn-layers-class, .btn-tools-class, .btn-tutorial-class {
   background-position: 0 0;
   background-size: contain;
   width: 24px;
@@ -107,6 +107,9 @@ html, body * {
 }
 .btn-tools-class {
   background-image: url(/img/btn_tools.png) !important;
+}
+.btn-tutorial-class {
+  background-image: url(/img/btn_tutorial.png) !important;
 }
 
 /* OpenLayers */
