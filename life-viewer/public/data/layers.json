@@ -397,6 +397,21 @@
                     {
                         "type": "ImageLayer",
                         "queryable": true,
+                        "name": "RIESGO_FICMEC",
+                        "title": "Riesgo FICMEC",
+                        "visible": false,
+                        "opacity": 0.8,
+                        "legend": true,
+                        "source": {
+                            "type": "TileWMS",
+                            "url": "https://preide.grafcan.es/ServicioWMS/mapserv?map=/home/datoslocal/mapas/LIFE/LIFE.map&",
+                            "params": {"LAYERS": "RIESGO_FICMEC", "FORMAT": "image/png", "TILED": false},
+                            "serverType": "mapserver"
+                        }
+                    },
+                    {
+                        "type": "ImageLayer",
+                        "queryable": true,
                         "name": "RIESGO_PERCIBIDO",
                         "title": "Riesgo percibido",
                         "visible": false,
