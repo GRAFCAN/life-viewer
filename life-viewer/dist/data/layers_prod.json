@@ -397,6 +397,21 @@
                     {
                         "type": "ImageLayer",
                         "queryable": true,
+                        "name": "RIESGO_FICMEC",
+                        "title": "Riesgo FICMEC",
+                        "visible": false,
+                        "opacity": 0.8,
+                        "legend": true,
+                        "source": {
+                            "type": "TileWMS",
+                            "url": "https://idecan2.grafcan.es/ServicioWMS/LIFEGarachico?",
+                            "params": {"LAYERS": "RIESGO_FICMEC", "FORMAT": "image/png", "TILED": false},
+                            "serverType": "mapserver"
+                        }
+                    },
+                    {
+                        "type": "ImageLayer",
+                        "queryable": true,
                         "name": "RIESGO_PERCIBIDO",
                         "title": "Riesgo percibido",
                         "visible": false,
