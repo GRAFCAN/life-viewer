@@ -110,18 +110,6 @@ function mapEvents(on) {
     });
 }
 
-// function viewEvents(on) {
-//     if (slave_map.getView() == parent_map.getView()) {
-//         return;
-//     }
-//     if (on) {
-//         slave_map_handler['dw:change_view_state'] = slave_map.getView().on(
-//             ['change:center', 'change:resolution', 'change:rotation'], view_change_handler);
-//     } else {
-//         unByKey(slave_map_handler['dw:change_view_state']);
-//     }
-// }
-
 export function synchronize(evt) {
     if (out_map.view_locked) {
         return;
@@ -186,7 +174,6 @@ export function changeMapType(type) {
                 parent_map: slave_map_id,
                 projection: parent_map.getView().getProjection(),
                 center: parent_map.getView().getCenter(),
-                // extent: import.meta.env.VITE_EXTENT.split(',').map(ele => parseFloat(ele)),
                 zoom: parent_map.getView().getZoom(),
                 minZoom: parseFloat(import.meta.env.VITE_MINZOOM),
                 maxZoom: parseFloat(import.meta.env.VITE_MAXZOOM)

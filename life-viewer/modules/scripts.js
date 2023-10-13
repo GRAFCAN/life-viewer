@@ -31,7 +31,6 @@ let pointerPosition = [0,  0]
 let view = new View({
     projection: getProjection('EPSG:32628'),
     center: import.meta.env.VITE_CENTER.split(',').map(ele => parseFloat(ele)),
-    // extent: import.meta.env.VITE_EXTENT.split(',').map(ele => parseFloat(ele)),
     zoom: parseFloat(import.meta.env.VITE_ZOOM),
     minZoom: parseFloat(import.meta.env.VITE_MINZOOM),
     maxZoom: parseFloat(import.meta.env.VITE_MAXZOOM)
@@ -227,22 +226,6 @@ function initEvents() {
     map_handler['change_view_state'] = map.getView().on(
         ['change:center', 'change:resolution', 'change:rotation'], viewChange);
 }
-
-// function refreshToc() {
-//     $('#toc-layers').empty();
-//     map.getLayers().forEach(ele => {
-//         const name = ele.get('name')
-//         const title = ele.get('title')
-//         const checked = ele.getVisible() ? 'checked ' : '';
-//         $('#toc-layers').prepend('<label for="lyr-' + name + '">' + title + '</label>');
-//         $('#toc-layers').prepend(
-//             '<input ' + checked + 'type="checkbox" name="layers" id="lyr-' + name + '" value="' + name + '"></input>');
-//         $('#lyr-' + name).on('click', () => {
-//             const layer = map.getLayers().getArray().find(layer => layer.get('name') == name);
-//             layer.setVisible(!layer.getVisible());
-//         });
-//     });
-// }
 
 function restoreTocState() {
     map.getLayers().forEach(ele => {
@@ -463,7 +446,6 @@ function toolMeasure() {
                 },
                 'Cerrar': function() {
                     measure.finalize();
-                    // map_handler['singleclick'] = map.on('singleclick', mapSingleclick);
                     $(this).dialog('close');
                 }
             }
