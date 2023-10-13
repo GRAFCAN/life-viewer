@@ -2,8 +2,8 @@
 
 Adaptación frente a las inundaciones costeras por efecto del cambio climático mediante estrategias flexibles en áreas urbanas de la Macaronesia.
 
-Más información en https://lifegarachico.eu/el-proyecto/.
+Más información del proyecto LIFE Garachico [aquí](https://lifegarachico.eu/).
 
-# Carpeta `life-viewer`
+## Visor del proyecto LIFE Garachico
 
-Visor del proyecto [LIFE Garachico](https://lifegarachico.eu/).
+El visor del proyecto LIFE Garachico se encuentra en la carpeta `life-viewer`.
