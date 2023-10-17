@@ -117,7 +117,7 @@ html, body * {
   top: auto;
   bottom: 7px;
   right: 125px;
-  width: 225px;
+  /* width: 225px; */
   height: 17px;
   background: var(--ol-partial-background-color);
   border-radius: 4px;
@@ -139,6 +139,12 @@ html, body * {
   right: auto;
   left: 8px;
   top: 60px;
+}
+#altitude-div {
+  display: inline;
+}
+#bathymetry-div {
+  display: inline;
 }
 
 /* jquery ui */
@@ -224,4 +230,39 @@ html, body * {
     min-height: 400px !important;
     min-width: 200px;
   }
+}
+
+.ol-popup {
+  position: absolute;
+  background-color: white;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+  padding: 2px 15px 2px 15px;
+  border-radius: 10px;
+  border: 1px solid #cccccc;
+  bottom: 12px;
+  left: -50px;
+  min-width: 40px;
+  font-size: small;
+  opacity: 65%;
+}
+.ol-popup:after, .ol-popup:before {
+  top: 100%;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+}
+.ol-popup:after {
+  border-top-color: white;
+  border-width: 10px;
+  left: 48px;
+  margin-left: -10px;
+}
+.ol-popup:before {
+  border-top-color: #cccccc;
+  border-width: 11px;
+  left: 48px;
+  margin-left: -11px;
 }
