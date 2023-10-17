@@ -26,3 +26,7 @@ Composición de un mapa gemelo. La vista de este segundo mapa puede ser la misma
 ## Carga de archivos de formas
 
 Soporta la carga de archivos KML, KMZ y GeoJSON.
+
+# Licencia
+
+Este proyecto cuenta con licencia conforme a los términos de la licencia [BSD-3-Clause](LICENSE.md).
