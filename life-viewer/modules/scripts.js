@@ -1,19 +1,20 @@
-import proj4 from 'proj4';
-import {register} from 'ol/proj/proj4';
-import Map from 'ol/Map';
-import View from 'ol/View';
-import TileLayer from 'ol/layer/Tile';
-import TileWMS from 'ol/source/TileWMS';
-import ImageLayer from 'ol/layer/Image';
-import ImageWMS from 'ol/source/ImageWMS';
-import {get as getProjection} from 'ol/proj';
-import MousePosition from 'ol/control/MousePosition';
-import ScaleLine from 'ol/control/ScaleLine';
-import {unByKey} from 'ol/Observable';
+import proj4 from 'proj4'
+import {register} from 'ol/proj/proj4'
+import Map from 'ol/Map'
+import View from 'ol/View'
+import TileLayer from 'ol/layer/Tile'
+import TileWMS from 'ol/source/TileWMS'
+import ImageLayer from 'ol/layer/Image'
+import ImageWMS from 'ol/source/ImageWMS'
+import Overlay from 'ol/Overlay.js'
+import {get as getProjection} from 'ol/proj'
+import MousePosition from 'ol/control/MousePosition'
+import ScaleLine from 'ol/control/ScaleLine'
+import {unByKey} from 'ol/Observable'
 
-import * as measure from './tool-measure';
-import * as doublewindow from './tool-doublewindow';
-import * as features from './tool-features';
+import * as measure from './tool-measure'
+import * as doublewindow from './tool-doublewindow'
+import * as features from './tool-features'
 
 // EPSG:32628 projection
 proj4.defs(
@@ -51,7 +52,8 @@ function recLayers(data) {
                     params: item.source.params,
                     // serverType: item.source.serverType
                 }),
-                visible: item.visible
+                visible: item.visible,
+                popup: item.popup
             }))
         } else if (item.type == 'ImageLayer') {
             layers.unshift(new ImageLayer({
@@ -64,7 +66,8 @@ function recLayers(data) {
                     params: item.source.params,
                     // serverType: item.source.serverType
                 }),
-                visible: item.visible
+                visible: item.visible,
+                popup: item.popup
             }))
         } else if (item.type.match(/group|folder/) && item.nodes) {
             if (!(item.hidden || false)) {
@@ -75,13 +78,27 @@ function recLayers(data) {
     return layers
 }
 
+/*
+ * batimetría
+ */
+const bat_content = document.getElementById('popup-bat-content')
+const bat_overlay = new Overlay({
+    element: document.getElementById('popup-bat'),
+    autoPan: {
+        animation: {
+            duration: 250,
+        },
+    },
+})
+
 export function initMap(data) {
     let layers = recLayers(data);
 
     map = new Map({
         target: 'map',
         layers: layers,
-        view: view
+        view: view,
+        overlays: [ bat_overlay ]
     });
 
     initControls(data);
@@ -198,10 +215,37 @@ function isPointerStopped (e) {
         e.coordinate[0] == pointerPosition[0]
         && e.coordinate[1] == pointerPosition[1]
       ) {
+        // altitude
         getAltitude(e.coordinate)
         .then(altitude => {
-            $('#altitude').text(altitude)
+            if (altitude.match(/^(sin datos|0 m)/i)) {
+                $('#altitude-div').hide()
+            } else {
+                $('#altitude').text(altitude)
+                $('#altitude-div').show()
+            }
+            
         })
+        // bathymetry
+        $('#bathymetry-div').hide()
+        bat_overlay.setPosition(undefined)
+        let is_bathymetry_visible = false
+        map.getLayers().forEach(layer => {
+            if (layer.get('popup') === true && layer.getVisible()) {
+                is_bathymetry_visible = true
+            }
+        })
+        if (is_bathymetry_visible) {
+            getBathymetry(e.coordinate)
+            .then(depth => {
+                if (!depth.match(/^(sin datos|0 m)/i)) {
+                    bat_content.innerHTML = `<p><code>${depth}</code></p>`
+                    bat_overlay.setPosition(e.coordinate)
+                    $('#bathymetry').text(depth)
+                    $('#bathymetry-div').show()
+                }
+            })
+        }
       }
     }, 500)
 }
@@ -318,7 +362,8 @@ function initControls(data) {
         coordinateFormat: function(coordinate) {
             return 'x: ' + coordinate[0].toLocaleString()
                 + ' y: ' + coordinate[1].toLocaleString()
-                + ' z: <span id="altitude">0</span>'
+                + ' <div id="altitude-div">z: <span id="altitude">0</span></div>'
+                + ' <div id="bathymetry-div">prof.: <span id="bathymetry">0</span></div>'
         }
     })
 
@@ -593,7 +638,7 @@ function format(value, precision) {
   
 function checkZ(coordinates, precision) {
     return new Promise((resolve, reject) => {
-        let url = "/mdt/getztif/[x]/[y]/32628/A/";
+        let url = import.meta.env.VITE_MDT_URL;
         url = url.replace("[x]", parseInt(coordinates[0]));
         url = url.replace("[y]", parseInt(coordinates[1]));
         fetch(url)
@@ -622,6 +667,37 @@ function checkZ(coordinates, precision) {
         })
 }
 
+function checkB(coordinates, precision) {
+    return new Promise((resolve, reject) => {
+        let url = import.meta.env.VITE_BAT_URL;
+        url = url.replace("[x]", parseInt(coordinates[0]));
+        url = url.replace("[y]", parseInt(coordinates[1]));
+        fetch(url)
+            .catch((error) => {
+                reject(error)
+            })
+            .then((response) => response.text())
+            .then((response) => new window.DOMParser().parseFromString(response, "text/xml"))
+            .then((data) => {
+                let z = data.getElementsByTagName("z");
+                let profundidad,
+                    original_value;
+                if (z.length > 0) {
+                    original_value = z[0].textContent;
+                    if (parseFloat(z[0].textContent) > -32768) {
+                        profundidad = format(z[0].textContent, precision) + " m.";
+                    } else {
+                        profundidad = "sin datos";
+                    }
+                }
+                resolve({
+                    valueString: profundidad,
+                    value: original_value
+                })
+            });
+        })
+}
+
 export function getAltitude (coordinate) {
     return new Promise((resolve, reject) => {
         checkZ(coordinate, 2)
@@ -634,3 +710,14 @@ export function getAltitude (coordinate) {
     })
 }
 
+export function getBathymetry (coordinate) {
+    return new Promise((resolve, reject) => {
+        checkB(coordinate, 2)
+        .then((response) => {
+            resolve(response.valueString)
+        })
+        .catch((error) => {
+            reject(error)
+        })
+    })
+}
