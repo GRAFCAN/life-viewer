@@ -676,10 +676,12 @@
         "name": "batimetria_p",
         "title": "Batimetría (profundidad)",
         "visible": false,
+        "popup": true,
         "legend": "/img/legend/batimetria_p_m.png",
         "source": {
             "type": "TileWMS",
-            "url": "https://preide.grafcan.es/ServicioWMS/mapserv?map=/home/datoslocal/mapas/LIFE/LIFE.map&",
+            "url_pre": "https://preide.grafcan.es/ServicioWMS/mapserv?map=/home/datoslocal/mapas/LIFE/LIFE.map&",
+            "url": "https://idecan2.grafcan.es/ServicioWMS/LIFEGarachico?",
             "params": {"LAYERS": "BATIMETRIA_P", "FORMAT": "image/png", "TILED": true},
             "serverType": "mapserver"
         }
@@ -690,9 +692,11 @@
         "name": "batimetria_s",
         "title": "Batimetría (sombras)",
         "visible": false,
+        "popup": true,
         "source": {
             "type": "TileWMS",
-            "url": "https://preide.grafcan.es/ServicioWMS/mapserv?map=/home/datoslocal/mapas/LIFE/LIFE.map&",
+            "url_pre": "https://preide.grafcan.es/ServicioWMS/mapserv?map=/home/datoslocal/mapas/LIFE/LIFE.map&",
+            "url": "https://idecan2.grafcan.es/ServicioWMS/LIFEGarachico?",
             "params": {"LAYERS": "BATIMETRIA_S", "FORMAT": "image/png", "TILED": true},
             "serverType": "mapserver"
         }
