@@ -3,3 +3,5 @@ node_modules
 
 *.zip
 *.bak
+
+/public/tutorial/viewer_tutorial-original.mp4
